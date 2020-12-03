@@ -1,0 +1,58 @@
+array(0) {
+}
+array(8) {
+  ["x"]=>
+  int(123)
+  ["y"]=>
+  int(456)
+  ["d"]=>
+  NULL
+  ["e"]=>
+  NULL
+  ["f"]=>
+  NULL
+  ["g"]=>
+  NULL
+  ["h"]=>
+  int(0)
+  ["i"]=>
+  int(0)
+}
+
+array(8) {
+  ["x"]=>
+  int(123)
+  ["y"]=>
+  int(456)
+  ["d"]=>
+  NULL
+  ["e"]=>
+  NULL
+  ["f"]=>
+  NULL
+  ["g"]=>
+  NULL
+  ["h"]=>
+  int(0)
+  ["i"]=>
+  int(0)
+}
+
+array(8) {
+  ["x"]=>
+  int(123)
+  ["y"]=>
+  int(456)
+  ["d"]=>
+  NULL
+  ["e"]=>
+  NULL
+  ["f"]=>
+  NULL
+  ["g"]=>
+  NULL
+  ["h"]=>
+  int(0)
+  ["i"]=>
+  int(0)
+}

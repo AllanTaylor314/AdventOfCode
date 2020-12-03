@@ -1,0 +1,3 @@
+Belfast to London = 518
+Dublin to Belfast = 141
+London to Dublin = 464
