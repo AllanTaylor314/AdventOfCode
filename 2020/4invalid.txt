@@ -1,0 +1,1347 @@
+Err:hcl
+array(7) {
+  ["byr"]=>
+  string(4) "1983"
+  ["iyr"]=>
+  string(4) "2017"
+  ["pid"]=>
+  string(9) "796082981"
+  ["cid"]=>
+  string(3) "129"
+  ["eyr"]=>
+  string(4) "2030"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "182cm"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2006"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(10) "8204115568"
+  ["cid"]=>
+  string(3) "314"
+  ["eyr"]=>
+  string(4) "2039"
+  ["ecl"]=>
+  string(7) "#0180ce"
+  ["hgt"]=>
+  string(5) "171cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1991"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(7) "#9c3ea1"
+  ["cid"]=>
+  string(3) "124"
+  ["eyr"]=>
+  string(4) "2039"
+  ["ecl"]=>
+  string(3) "gmt"
+  ["hgt"]=>
+  string(5) "189in"
+  ["hcl"]=>
+  string(6) "231d64"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2016"
+  ["iyr"]=>
+  string(4) "2022"
+  ["pid"]=>
+  string(7) "#758e59"
+  ["cid"]=>
+  string(3) "124"
+  ["eyr"]=>
+  string(4) "1933"
+  ["ecl"]=>
+  string(7) "#1f58f9"
+  ["hgt"]=>
+  string(2) "68"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2005"
+  ["iyr"]=>
+  string(4) "2005"
+  ["pid"]=>
+  string(5) "188cm"
+  ["cid"]=>
+  string(3) "163"
+  ["eyr"]=>
+  string(4) "1994"
+  ["ecl"]=>
+  string(7) "#a08502"
+  ["hgt"]=>
+  string(5) "170cm"
+  ["hcl"]=>
+  string(6) "2964fb"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "1993"
+  ["pid"]=>
+  string(7) "#50f768"
+  ["cid"]=>
+  string(3) "243"
+  ["eyr"]=>
+  string(4) "1996"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(4) "62cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2004"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(9) "320348494"
+  ["cid"]=>
+  string(3) "281"
+  ["eyr"]=>
+  string(4) "2033"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(4) "76cm"
+  ["hcl"]=>
+  string(7) "#06a58b"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2015"
+  ["iyr"]=>
+  string(4) "2014"
+  ["pid"]=>
+  string(7) "#218eb5"
+  ["cid"]=>
+  string(3) "228"
+  ["eyr"]=>
+  string(4) "2035"
+  ["ecl"]=>
+  string(7) "#c8533a"
+  ["hgt"]=>
+  string(4) "70cm"
+  ["hcl"]=>
+  string(7) "#0ec4fe"
+}
+Err:hgt - fmt
+array(8) {
+  ["byr"]=>
+  string(4) "1964"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(9) "931162400"
+  ["cid"]=>
+  string(3) "330"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(2) "83"
+  ["hcl"]=>
+  string(7) "#c0946f"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1981"
+  ["iyr"]=>
+  string(4) "2012"
+  ["pid"]=>
+  string(9) "491710153"
+  ["cid"]=>
+  string(2) "57"
+  ["eyr"]=>
+  string(4) "2040"
+  ["ecl"]=>
+  string(7) "#c85046"
+  ["hgt"]=>
+  string(5) "175cm"
+  ["hcl"]=>
+  string(7) "#b6652a"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1965"
+  ["iyr"]=>
+  string(4) "1976"
+  ["pid"]=>
+  string(5) "157cm"
+  ["cid"]=>
+  string(3) "277"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(7) "#6c7644"
+  ["hgt"]=>
+  string(5) "159in"
+  ["hcl"]=>
+  string(7) "#341e13"
+}
+Err:hgt - rng
+array(8) {
+  ["byr"]=>
+  string(4) "1972"
+  ["iyr"]=>
+  string(4) "2014"
+  ["pid"]=>
+  string(9) "330588516"
+  ["cid"]=>
+  string(3) "146"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(4) "65cm"
+  ["hcl"]=>
+  string(7) "#efcc98"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1965"
+  ["iyr"]=>
+  string(4) "1985"
+  ["pid"]=>
+  string(9) "810311252"
+  ["cid"]=>
+  string(3) "254"
+  ["eyr"]=>
+  string(4) "2034"
+  ["ecl"]=>
+  string(3) "brn"
+  ["hgt"]=>
+  string(2) "95"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1969"
+  ["iyr"]=>
+  string(4) "2010"
+  ["pid"]=>
+  string(8) "82008848"
+  ["cid"]=>
+  string(3) "130"
+  ["eyr"]=>
+  string(4) "1936"
+  ["ecl"]=>
+  string(3) "gmt"
+  ["hgt"]=>
+  string(4) "74cm"
+  ["hcl"]=>
+  string(6) "50e1a7"
+}
+Err:pid
+array(8) {
+  ["byr"]=>
+  string(4) "1994"
+  ["iyr"]=>
+  string(4) "2014"
+  ["pid"]=>
+  string(7) "#4f5b92"
+  ["cid"]=>
+  string(3) "127"
+  ["eyr"]=>
+  string(4) "2020"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "188cm"
+  ["hcl"]=>
+  string(7) "#6b5442"
+}
+Err:ecl
+array(8) {
+  ["byr"]=>
+  string(4) "1981"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(9) "545992967"
+  ["cid"]=>
+  string(3) "127"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(5) "157cm"
+  ["hcl"]=>
+  string(7) "#c0946f"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2013"
+  ["iyr"]=>
+  string(4) "2021"
+  ["pid"]=>
+  string(10) "5135078781"
+  ["cid"]=>
+  string(3) "127"
+  ["eyr"]=>
+  string(4) "2040"
+  ["ecl"]=>
+  string(7) "#dedf53"
+  ["hgt"]=>
+  string(4) "62cm"
+  ["hcl"]=>
+  string(7) "#7d3b0c"
+}
+Err:hcl
+array(8) {
+  ["byr"]=>
+  string(4) "1998"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "106942710"
+  ["cid"]=>
+  string(3) "271"
+  ["eyr"]=>
+  string(4) "2025"
+  ["ecl"]=>
+  string(3) "hzl"
+  ["hgt"]=>
+  string(5) "157cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "2026"
+  ["pid"]=>
+  string(10) "2538922220"
+  ["cid"]=>
+  string(3) "328"
+  ["eyr"]=>
+  string(4) "2004"
+  ["ecl"]=>
+  string(7) "#a51d9c"
+  ["hgt"]=>
+  string(3) "174"
+  ["hcl"]=>
+  string(6) "91236c"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "2012"
+  ["pid"]=>
+  string(9) "959660262"
+  ["cid"]=>
+  string(3) "339"
+  ["eyr"]=>
+  string(4) "2022"
+  ["ecl"]=>
+  string(3) "brn"
+  ["hgt"]=>
+  string(5) "170cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1950"
+  ["iyr"]=>
+  string(4) "1980"
+  ["pid"]=>
+  string(9) "780067045"
+  ["cid"]=>
+  string(3) "339"
+  ["eyr"]=>
+  string(4) "2013"
+  ["ecl"]=>
+  string(3) "dne"
+  ["hgt"]=>
+  string(4) "70cm"
+  ["hcl"]=>
+  string(7) "#866857"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(9) "579663338"
+  ["cid"]=>
+  string(3) "184"
+  ["eyr"]=>
+  string(4) "1977"
+  ["ecl"]=>
+  string(3) "grt"
+  ["hgt"]=>
+  string(5) "188cm"
+  ["hcl"]=>
+  string(7) "#ceb3a1"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "2001"
+  ["iyr"]=>
+  string(4) "1988"
+  ["pid"]=>
+  string(9) "378073052"
+  ["cid"]=>
+  string(3) "343"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "185cm"
+  ["hcl"]=>
+  string(7) "#888785"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1973"
+  ["iyr"]=>
+  string(4) "1988"
+  ["pid"]=>
+  string(9) "286459107"
+  ["cid"]=>
+  string(3) "273"
+  ["eyr"]=>
+  string(4) "2023"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "184cm"
+  ["hcl"]=>
+  string(7) "#888785"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2013"
+  ["iyr"]=>
+  string(4) "2024"
+  ["pid"]=>
+  string(8) "42057861"
+  ["cid"]=>
+  string(3) "294"
+  ["eyr"]=>
+  string(4) "2023"
+  ["ecl"]=>
+  string(7) "#312118"
+  ["hgt"]=>
+  string(3) "188"
+  ["hcl"]=>
+  string(6) "bb7ace"
+}
+Err:hgt - rng
+array(8) {
+  ["byr"]=>
+  string(4) "1984"
+  ["iyr"]=>
+  string(4) "2013"
+  ["pid"]=>
+  string(9) "001255475"
+  ["cid"]=>
+  string(3) "192"
+  ["eyr"]=>
+  string(4) "2027"
+  ["ecl"]=>
+  string(7) "#5ad460"
+  ["hgt"]=>
+  string(4) "64cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:ecl
+array(8) {
+  ["byr"]=>
+  string(4) "1923"
+  ["iyr"]=>
+  string(4) "2020"
+  ["pid"]=>
+  string(5) "157cm"
+  ["cid"]=>
+  string(3) "213"
+  ["eyr"]=>
+  string(4) "2020"
+  ["ecl"]=>
+  string(7) "#a46ef7"
+  ["hgt"]=>
+  string(5) "160cm"
+  ["hcl"]=>
+  string(7) "#341e13"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2028"
+  ["iyr"]=>
+  string(4) "1930"
+  ["pid"]=>
+  string(8) "41117341"
+  ["cid"]=>
+  string(3) "235"
+  ["eyr"]=>
+  string(4) "2033"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(4) "76cm"
+  ["hcl"]=>
+  string(7) "#6b5442"
+}
+Err:pid
+array(8) {
+  ["byr"]=>
+  string(4) "1965"
+  ["iyr"]=>
+  string(4) "2010"
+  ["pid"]=>
+  string(8) "41316572"
+  ["cid"]=>
+  string(3) "235"
+  ["eyr"]=>
+  string(4) "2027"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "179cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2005"
+  ["iyr"]=>
+  string(4) "2027"
+  ["pid"]=>
+  string(9) "886168412"
+  ["cid"]=>
+  string(3) "235"
+  ["eyr"]=>
+  string(4) "1989"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(5) "152cm"
+  ["hcl"]=>
+  string(6) "9993d6"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2009"
+  ["iyr"]=>
+  string(4) "2015"
+  ["pid"]=>
+  string(5) "180cm"
+  ["cid"]=>
+  string(3) "315"
+  ["eyr"]=>
+  string(4) "1920"
+  ["ecl"]=>
+  string(3) "dne"
+  ["hgt"]=>
+  string(3) "145"
+  ["hcl"]=>
+  string(7) "#b6652a"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2025"
+  ["iyr"]=>
+  string(4) "2025"
+  ["pid"]=>
+  string(10) "7952164402"
+  ["cid"]=>
+  string(3) "111"
+  ["eyr"]=>
+  string(4) "2038"
+  ["ecl"]=>
+  string(7) "#a1368a"
+  ["hgt"]=>
+  string(3) "184"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1960"
+  ["iyr"]=>
+  string(4) "2015"
+  ["pid"]=>
+  string(9) "165478949"
+  ["cid"]=>
+  string(3) "111"
+  ["eyr"]=>
+  string(4) "1987"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(4) "75cm"
+  ["hcl"]=>
+  string(6) "453b30"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2018"
+  ["iyr"]=>
+  string(4) "2025"
+  ["pid"]=>
+  string(9) "165478949"
+  ["cid"]=>
+  string(3) "100"
+  ["eyr"]=>
+  string(4) "2022"
+  ["ecl"]=>
+  string(3) "blu"
+  ["hgt"]=>
+  string(4) "75cm"
+  ["hcl"]=>
+  string(6) "ead803"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1974"
+  ["iyr"]=>
+  string(4) "2020"
+  ["pid"]=>
+  string(9) "586853292"
+  ["cid"]=>
+  string(3) "256"
+  ["eyr"]=>
+  string(4) "1972"
+  ["ecl"]=>
+  string(3) "gry"
+  ["hgt"]=>
+  string(5) "188cm"
+  ["hcl"]=>
+  string(7) "#888098"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2008"
+  ["iyr"]=>
+  string(4) "2025"
+  ["pid"]=>
+  string(8) "42120034"
+  ["cid"]=>
+  string(3) "256"
+  ["eyr"]=>
+  string(4) "1928"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(4) "62cm"
+  ["hcl"]=>
+  string(7) "#18171d"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2018"
+  ["iyr"]=>
+  string(4) "2027"
+  ["pid"]=>
+  string(9) "834335216"
+  ["cid"]=>
+  string(3) "118"
+  ["eyr"]=>
+  string(4) "2038"
+  ["ecl"]=>
+  string(3) "lzr"
+  ["hgt"]=>
+  string(5) "187in"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1998"
+  ["iyr"]=>
+  string(4) "2027"
+  ["pid"]=>
+  string(5) "186cm"
+  ["cid"]=>
+  string(3) "118"
+  ["eyr"]=>
+  string(4) "2026"
+  ["ecl"]=>
+  string(3) "blu"
+  ["hgt"]=>
+  string(4) "70in"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2022"
+  ["iyr"]=>
+  string(4) "2024"
+  ["pid"]=>
+  string(5) "185cm"
+  ["cid"]=>
+  string(3) "321"
+  ["eyr"]=>
+  string(4) "2039"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(4) "66cm"
+  ["hcl"]=>
+  string(7) "#c0946f"
+}
+Err:ecl
+array(8) {
+  ["byr"]=>
+  string(4) "1926"
+  ["iyr"]=>
+  string(4) "2012"
+  ["pid"]=>
+  string(10) "2235389773"
+  ["cid"]=>
+  string(3) "172"
+  ["eyr"]=>
+  string(4) "2021"
+  ["ecl"]=>
+  string(7) "#04ce29"
+  ["hgt"]=>
+  string(5) "160cm"
+  ["hcl"]=>
+  string(7) "#ceb3a1"
+}
+Err:ecl
+array(8) {
+  ["byr"]=>
+  string(4) "1946"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(9) "298537901"
+  ["cid"]=>
+  string(3) "276"
+  ["eyr"]=>
+  string(4) "2024"
+  ["ecl"]=>
+  string(7) "#87b6f4"
+  ["hgt"]=>
+  string(5) "150cm"
+  ["hcl"]=>
+  string(7) "#866857"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2029"
+  ["iyr"]=>
+  string(4) "2012"
+  ["pid"]=>
+  string(7) "#b1f685"
+  ["cid"]=>
+  string(2) "77"
+  ["eyr"]=>
+  string(4) "2015"
+  ["ecl"]=>
+  string(7) "#ad9ae9"
+  ["hgt"]=>
+  string(5) "181cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1924"
+  ["iyr"]=>
+  string(4) "2026"
+  ["pid"]=>
+  string(9) "536474715"
+  ["cid"]=>
+  string(3) "101"
+  ["eyr"]=>
+  string(4) "2022"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(4) "64in"
+  ["hcl"]=>
+  string(7) "#7d3b0c"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2026"
+  ["iyr"]=>
+  string(4) "2024"
+  ["pid"]=>
+  string(8) "20921789"
+  ["cid"]=>
+  string(3) "203"
+  ["eyr"]=>
+  string(4) "2037"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(5) "153cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1954"
+  ["iyr"]=>
+  string(4) "1953"
+  ["pid"]=>
+  string(7) "#97c11a"
+  ["cid"]=>
+  string(3) "327"
+  ["eyr"]=>
+  string(4) "2003"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(4) "62in"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1934"
+  ["iyr"]=>
+  string(4) "2020"
+  ["pid"]=>
+  string(8) "98689392"
+  ["cid"]=>
+  string(3) "252"
+  ["eyr"]=>
+  string(4) "2012"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(3) "103"
+  ["hcl"]=>
+  string(6) "298df8"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2010"
+  ["iyr"]=>
+  string(4) "1930"
+  ["pid"]=>
+  string(9) "624798709"
+  ["cid"]=>
+  string(3) "111"
+  ["eyr"]=>
+  string(4) "1975"
+  ["ecl"]=>
+  string(3) "hzl"
+  ["hgt"]=>
+  string(5) "150cm"
+  ["hcl"]=>
+  string(6) "159a9a"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2007"
+  ["iyr"]=>
+  string(4) "1957"
+  ["pid"]=>
+  string(10) "9655548750"
+  ["cid"]=>
+  string(3) "153"
+  ["eyr"]=>
+  string(4) "2030"
+  ["ecl"]=>
+  string(3) "xry"
+  ["hgt"]=>
+  string(2) "84"
+  ["hcl"]=>
+  string(7) "#623a2f"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2026"
+  ["iyr"]=>
+  string(4) "2030"
+  ["pid"]=>
+  string(5) "166cm"
+  ["cid"]=>
+  string(2) "70"
+  ["eyr"]=>
+  string(4) "2007"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(3) "137"
+  ["hcl"]=>
+  string(6) "8e8916"
+}
+Err:ecl
+array(8) {
+  ["byr"]=>
+  string(4) "1942"
+  ["iyr"]=>
+  string(4) "2010"
+  ["pid"]=>
+  string(9) "781251989"
+  ["cid"]=>
+  string(2) "70"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(5) "178cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2003"
+  ["iyr"]=>
+  string(4) "1947"
+  ["pid"]=>
+  string(9) "169149205"
+  ["cid"]=>
+  string(2) "90"
+  ["eyr"]=>
+  string(4) "1977"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(4) "75cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2024"
+  ["iyr"]=>
+  string(4) "1977"
+  ["pid"]=>
+  string(7) "#994231"
+  ["cid"]=>
+  string(3) "222"
+  ["eyr"]=>
+  string(4) "2010"
+  ["ecl"]=>
+  string(7) "#875a67"
+  ["hgt"]=>
+  string(2) "71"
+  ["hcl"]=>
+  string(6) "b98ff6"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2007"
+  ["iyr"]=>
+  string(4) "2023"
+  ["pid"]=>
+  string(8) "22002588"
+  ["cid"]=>
+  string(3) "222"
+  ["eyr"]=>
+  string(4) "2021"
+  ["ecl"]=>
+  string(3) "grt"
+  ["hgt"]=>
+  string(3) "141"
+  ["hcl"]=>
+  string(6) "b98ff6"
+}
+Err:hcl
+array(8) {
+  ["byr"]=>
+  string(4) "1999"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(9) "524515058"
+  ["cid"]=>
+  string(3) "217"
+  ["eyr"]=>
+  string(4) "2027"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "190cm"
+  ["hcl"]=>
+  string(6) "b98ff6"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2019"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(10) "5866040917"
+  ["cid"]=>
+  string(3) "217"
+  ["eyr"]=>
+  string(4) "1942"
+  ["ecl"]=>
+  string(3) "dne"
+  ["hgt"]=>
+  string(4) "62cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:hcl
+array(8) {
+  ["byr"]=>
+  string(4) "1985"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "754032301"
+  ["cid"]=>
+  string(3) "217"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "185cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:hcl
+array(8) {
+  ["byr"]=>
+  string(4) "1922"
+  ["iyr"]=>
+  string(4) "2014"
+  ["pid"]=>
+  string(9) "852815945"
+  ["cid"]=>
+  string(3) "324"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "brn"
+  ["hgt"]=>
+  string(5) "163cm"
+  ["hcl"]=>
+  string(6) "53b08b"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(9) "714110829"
+  ["cid"]=>
+  string(3) "178"
+  ["eyr"]=>
+  string(4) "2021"
+  ["ecl"]=>
+  string(3) "brn"
+  ["hgt"]=>
+  string(5) "155cm"
+  ["hcl"]=>
+  string(7) "#733820"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1974"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(9) "462538213"
+  ["cid"]=>
+  string(3) "203"
+  ["eyr"]=>
+  string(4) "2033"
+  ["ecl"]=>
+  string(3) "amb"
+  ["hgt"]=>
+  string(5) "160cm"
+  ["hcl"]=>
+  string(7) "#c0946f"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2016"
+  ["iyr"]=>
+  string(4) "2030"
+  ["pid"]=>
+  string(9) "654088396"
+  ["cid"]=>
+  string(3) "336"
+  ["eyr"]=>
+  string(4) "2021"
+  ["ecl"]=>
+  string(3) "utc"
+  ["hgt"]=>
+  string(5) "191cm"
+  ["hcl"]=>
+  string(7) "#866857"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2027"
+  ["iyr"]=>
+  string(4) "2021"
+  ["pid"]=>
+  string(10) "6155507056"
+  ["cid"]=>
+  string(3) "176"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "165cm"
+  ["hcl"]=>
+  string(7) "#733820"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2015"
+  ["iyr"]=>
+  string(4) "2017"
+  ["pid"]=>
+  string(5) "172cm"
+  ["cid"]=>
+  string(3) "185"
+  ["eyr"]=>
+  string(4) "2036"
+  ["ecl"]=>
+  string(3) "hzl"
+  ["hgt"]=>
+  string(5) "185cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1965"
+  ["iyr"]=>
+  string(4) "2022"
+  ["pid"]=>
+  string(8) "88829820"
+  ["cid"]=>
+  string(3) "114"
+  ["eyr"]=>
+  string(4) "2040"
+  ["ecl"]=>
+  string(7) "#bb3dce"
+  ["hgt"]=>
+  string(4) "71cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:iyr
+array(8) {
+  ["byr"]=>
+  string(4) "1941"
+  ["iyr"]=>
+  string(4) "2022"
+  ["pid"]=>
+  string(9) "585528668"
+  ["cid"]=>
+  string(3) "114"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(4) "62in"
+  ["hcl"]=>
+  string(7) "#7d3b0c"
+}
+Err:hgt - rng
+array(8) {
+  ["byr"]=>
+  string(4) "1932"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "071196833"
+  ["cid"]=>
+  string(3) "297"
+  ["eyr"]=>
+  string(4) "2027"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "173in"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2021"
+  ["iyr"]=>
+  string(4) "1966"
+  ["pid"]=>
+  string(5) "190cm"
+  ["cid"]=>
+  string(2) "63"
+  ["eyr"]=>
+  string(4) "1931"
+  ["ecl"]=>
+  string(7) "#252d02"
+  ["hgt"]=>
+  string(3) "101"
+  ["hcl"]=>
+  string(6) "dc9531"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1976"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(5) "170cm"
+  ["cid"]=>
+  string(3) "203"
+  ["eyr"]=>
+  string(4) "1925"
+  ["ecl"]=>
+  string(3) "grt"
+  ["hgt"]=>
+  string(5) "181in"
+  ["hcl"]=>
+  string(6) "dc9531"
+}
+Err:eyr
+array(8) {
+  ["byr"]=>
+  string(4) "1992"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(8) "68093057"
+  ["cid"]=>
+  string(3) "345"
+  ["eyr"]=>
+  string(4) "1976"
+  ["ecl"]=>
+  string(3) "grt"
+  ["hgt"]=>
+  string(3) "109"
+  ["hcl"]=>
+  string(6) "35d6e4"
+}
+Err:byr
+array(8) {
+  ["byr"]=>
+  string(4) "2006"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(10) "5154675209"
+  ["cid"]=>
+  string(3) "256"
+  ["eyr"]=>
+  string(4) "2033"
+  ["ecl"]=>
+  string(7) "#a38be3"
+  ["hgt"]=>
+  string(3) "154"
+  ["hcl"]=>
+  string(1) "z"
+}
+Err:pid
+array(8) {
+  ["byr"]=>
+  string(4) "1958"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(10) "0484880795"
+  ["cid"]=>
+  string(3) "259"
+  ["eyr"]=>
+  string(4) "2021"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "189cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+Err:pid
+array(8) {
+  ["byr"]=>
+  string(4) "1942"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(5) "175cm"
+  ["cid"]=>
+  string(3) "232"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "193cm"
+  ["hcl"]=>
+  string(7) "#733820"
+}

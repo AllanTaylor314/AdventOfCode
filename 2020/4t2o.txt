@@ -1,0 +1,271 @@
+array(8) {
+  ["byr"]=>
+  string(4) "2006"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(10) "8204115568"
+  ["cid"]=>
+  string(3) "314"
+  ["eyr"]=>
+  string(4) "2039"
+  ["ecl"]=>
+  string(7) "#0180ce"
+  ["hgt"]=>
+  string(5) "171cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1991"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "729933757"
+  ["cid"]=>
+  string(3) "314"
+  ["eyr"]=>
+  string(4) "2022"
+  ["ecl"]=>
+  string(3) "gry"
+  ["hgt"]=>
+  string(5) "167cm"
+  ["hcl"]=>
+  string(7) "#341e13"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "2016"
+  ["iyr"]=>
+  string(4) "2022"
+  ["pid"]=>
+  string(7) "#758e59"
+  ["cid"]=>
+  string(3) "124"
+  ["eyr"]=>
+  string(4) "1933"
+  ["ecl"]=>
+  string(7) "#1f58f9"
+  ["hgt"]=>
+  string(2) "68"
+  ["hcl"]=>
+  string(1) "z"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1930"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(9) "781914826"
+  ["cid"]=>
+  string(3) "124"
+  ["eyr"]=>
+  string(4) "2022"
+  ["ecl"]=>
+  string(3) "gry"
+  ["hgt"]=>
+  string(5) "172cm"
+  ["hcl"]=>
+  string(7) "#fffffd"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1942"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(9) "319110455"
+  ["cid"]=>
+  string(3) "141"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "186cm"
+  ["hcl"]=>
+  string(7) "#08df7e"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "2005"
+  ["iyr"]=>
+  string(4) "2005"
+  ["pid"]=>
+  string(5) "188cm"
+  ["cid"]=>
+  string(3) "163"
+  ["eyr"]=>
+  string(4) "1994"
+  ["ecl"]=>
+  string(7) "#a08502"
+  ["hgt"]=>
+  string(5) "170cm"
+  ["hcl"]=>
+  string(6) "2964fb"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1928"
+  ["iyr"]=>
+  string(4) "2013"
+  ["pid"]=>
+  string(9) "705547886"
+  ["cid"]=>
+  string(3) "163"
+  ["eyr"]=>
+  string(4) "2030"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "168cm"
+  ["hcl"]=>
+  string(7) "#fffffd"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1943"
+  ["iyr"]=>
+  string(4) "2019"
+  ["pid"]=>
+  string(9) "016251942"
+  ["cid"]=>
+  string(3) "219"
+  ["eyr"]=>
+  string(4) "2029"
+  ["ecl"]=>
+  string(3) "oth"
+  ["hgt"]=>
+  string(5) "163cm"
+  ["hcl"]=>
+  string(7) "#602927"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1942"
+  ["iyr"]=>
+  string(4) "2010"
+  ["pid"]=>
+  string(9) "117647952"
+  ["cid"]=>
+  string(3) "219"
+  ["eyr"]=>
+  string(4) "2026"
+  ["ecl"]=>
+  string(3) "gry"
+  ["hgt"]=>
+  string(5) "184cm"
+  ["hcl"]=>
+  string(7) "#efcc98"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1962"
+  ["iyr"]=>
+  string(4) "2011"
+  ["pid"]=>
+  string(9) "362697676"
+  ["cid"]=>
+  string(3) "243"
+  ["eyr"]=>
+  string(4) "2027"
+  ["ecl"]=>
+  string(3) "blu"
+  ["hgt"]=>
+  string(5) "154cm"
+  ["hcl"]=>
+  string(7) "#888785"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1965"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "779104554"
+  ["cid"]=>
+  string(3) "243"
+  ["eyr"]=>
+  string(4) "2030"
+  ["ecl"]=>
+  string(3) "blu"
+  ["hgt"]=>
+  string(5) "154cm"
+  ["hcl"]=>
+  string(7) "#435634"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "2017"
+  ["iyr"]=>
+  string(4) "1993"
+  ["pid"]=>
+  string(7) "#50f768"
+  ["cid"]=>
+  string(3) "243"
+  ["eyr"]=>
+  string(4) "1996"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(4) "62cm"
+  ["hcl"]=>
+  string(1) "z"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1988"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "951967790"
+  ["cid"]=>
+  string(3) "243"
+  ["eyr"]=>
+  string(4) "2030"
+  ["ecl"]=>
+  string(3) "grn"
+  ["hgt"]=>
+  string(5) "167cm"
+  ["hcl"]=>
+  string(7) "#cfa07d"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "2004"
+  ["iyr"]=>
+  string(4) "2018"
+  ["pid"]=>
+  string(9) "320348494"
+  ["cid"]=>
+  string(3) "281"
+  ["eyr"]=>
+  string(4) "2033"
+  ["ecl"]=>
+  string(3) "zzz"
+  ["hgt"]=>
+  string(4) "76cm"
+  ["hcl"]=>
+  string(7) "#06a58b"
+}
+array(8) {
+  ["byr"]=>
+  string(4) "1941"
+  ["iyr"]=>
+  string(4) "2016"
+  ["pid"]=>
+  string(9) "806979833"
+  ["cid"]=>
+  string(2) "83"
+  ["eyr"]=>
+  string(4) "2028"
+  ["ecl"]=>
+  string(3) "brn"
+  ["hgt"]=>
+  string(5) "179cm"
+  ["hcl"]=>
+  string(7) "#341e13"
+}
+10
