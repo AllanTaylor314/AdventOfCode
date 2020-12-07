@@ -1,0 +1,27 @@
+<?php
+header('Content-Type: text/plain');
+include("4in.php");
+$inputs = explode("\n", $input);
+$a = [];
+foreach ($inputs as $key => $in) {
+	if (preg_match("/Guard #(.*?) begins/", $in, $m)) {
+		$guard = (int)$m[1];
+		$a[$guard] = [];
+		$zzz = 0;
+//		var_dump($m);
+	} else {
+		if ($in[19] == 'f') {
+			$zzz = 1;
+		} else {
+			$zzz = 0;
+		}
+		$t = (int)($in[15].$in[16]);
+		if (!isset($a[$guard][$t])) {
+			$a[$guard][$t] = 0;
+		}
+		$a[$guard][$t] += $zzz;
+	}
+//	$a[$guard][$t]++;
+	var_dump($guard);
+}
+var_dump($a);
