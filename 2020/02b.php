@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
 $input=file_get_contents("2.txt");
-$inputs=explode("\r\n",$input,-1); //-1 to remove empty last
+$inputs=explode("\n",$input,-1); //-1 to remove empty last
 $n=0;
 foreach ($inputs as $i) {
   $j=explode(" ",$i);
