@@ -29,7 +29,7 @@ def gen_checksum(room):
     return out[0:5]
 
 
-lines = lines_from_file('4.txt')
+lines = lines_from_file('04.txt')
 data = []
 for line in lines:
     a = line.split("-")

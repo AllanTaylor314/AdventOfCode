@@ -7,7 +7,7 @@ def lines_from_file(filename):
     return lines
 
 
-lines = lines_from_file('6.txt')
+lines = lines_from_file('06.txt')
 message_length = len(lines[0])
 letter_freqs = [{} for i in range(message_length)]
 for line in lines:

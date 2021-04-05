@@ -32,7 +32,7 @@ def rotate_column(col, shift):
         screen[i][col] = new_col[i]
 
 
-lines = lines_from_file('8.txt')
+lines = lines_from_file('08.txt')
 screen = [[' ' for i in range(50)] for j in range(6)]
 for line in lines:
     cmd, *args = line.split(" ")

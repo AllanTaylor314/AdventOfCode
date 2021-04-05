@@ -43,7 +43,7 @@ def decrypt(room, sector):
     return out
 
 
-lines = lines_from_file('4.txt')
+lines = lines_from_file('04.txt')
 data = []
 for line in lines:
     a = line.split("-")

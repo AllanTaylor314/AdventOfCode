@@ -7,7 +7,7 @@ def lines_from_file(filename):
     return lines
 
 
-lines = lines_from_file('2.txt.')
+lines = lines_from_file('02.txt')
 grid = [
     [1, 2, 3],
     [4, 5, 6],

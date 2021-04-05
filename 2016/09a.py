@@ -6,7 +6,7 @@ def lines_from_file(filename):
     return lines
 
 
-file = "".join(lines_from_file('9.txt'))
+file = "".join(lines_from_file('09.txt'))
 #file = "(3x3)XYZ"
 out = ""
 i = 0

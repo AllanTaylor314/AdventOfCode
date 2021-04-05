@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
-$input=file_get_contents("1.txt");
+$input=file_get_contents("01.txt");
 $inputs=explode(", ",$input);
 $direction=0; //0 is north
 //	0

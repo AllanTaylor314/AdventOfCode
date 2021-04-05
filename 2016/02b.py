@@ -34,7 +34,7 @@ def new_coords(a, b, c):
     return ((an, bn) if is_valid_button(an, bn) else (a, b))
 
 
-lines = lines_from_file('2.txt.')
+lines = lines_from_file('02.txt')
 
 
 # for grid[a][b], U dec a, D inc a, L dec b, R inc b

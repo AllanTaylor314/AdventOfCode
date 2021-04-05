@@ -74,7 +74,7 @@ def is_abba(s):
     return False
 
 
-lines = lines_from_file('7.txt')
+lines = lines_from_file('07.txt')
 count = 0
 for ip in lines:
     count += int(supports_ssl(ip))
