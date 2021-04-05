@@ -1,2 +1,4 @@
 *.txt   text eol=lf
 *.php   text eol=lf
+*.py	text eol=lf
+*.rtf	linguist-detectable=false
