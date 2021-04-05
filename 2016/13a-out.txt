@@ -1,0 +1,41 @@
+OO O OO O  O       O O O    O  O   OOO  O OO O   
+ RS   O OOO OO OOOO  O OOO OOOO OOOO OO O O  OOO 
+  S   OOO O OO O  OOOO OOO  O OO    O OOO OOO   O
+O SS O  OOO O  O    O    OO  O O OO  O  OO    O  
+OO S     OO OOOOO   OO O OOO OOO OOO      OOO  OO
+ OOSOO    O   OOOOOO OO    O  O   O OO  O   OOOOO
+O  S OO   O     O     O  O  O OO  OO OOO OOOO   O
+   S  OO OOOO O   OO  OOO O OO O O OO  OOO  OOO  
+OOOSOOOO OO OOOOO OOOOO OO     O OO O O      OOO 
+  OS  O    O    O OO     O  OO O   OO   OO     O 
+   S  O OO   OOOO  O OO  OO OO   O   OOO OO  O  O
+OO S OO  OOOOO  O  OOOOOO O O OO OOOOO OO OOO O O
+   S   O O      O     O OO  O OO O   OO OOO OO   
+OO SSSS  O  OO OOOOOO  O OOOO O  OOO   O     O  O
+OO OO SSSSOO O OO  O O OO  OO OOO   OO O OO  OOOO
+O   OO  OO O O     O O            O    OOOOOO   O
+OO    O  OOO   OO OO  OOOO OO OOOO OO     O O   O
+ O  O OO  O OOOOO O O    OOOO O  OOOOOOOO  OOO OO
+ OOO      O O  OO OO OO       O     O  O O  OO O 
+O  O  OOO O     O  OOOOOO OO OOO OO    O  O O  O 
+O OOO O OOOOOO  O O  OO OO O  OO O OOOOOOOO OOOOO
+O  OO  O     O OO  O   O O OO O  O O  OO  O   OOO
+ O OOO O OO  O   O  OO  OO O  SSSO  O     O     O
+O   OO OOOOO  OOO O  OO O  OOO  S O  OOO OOOO O  
+OO        OOOO  O  O O  O O   O S  O OOO OO OOOO 
+ O  OOOOO OO OO OOO  O OO   O O SSS   O    O   O 
+OOO O  OO   O OOO OOOO OOOOO  OO  SS  O OO O O  O
+ OO      OO  O  OO  O      O O OOO S OO OO OO O  
+ OOOOO O O O      O OO OO  O  O    S      O O  OO
+     OO  O  OO  O O  OOOOOOOO   OO SSS  O OOOOOOO
+ OO O OOOOOO OO   O     O  OOOOOOO OOSS    O   OO
+OOO OO  OO OO OO OOOO O         O     ST   O O  O
+ O    O  OO OO O  O OOOOOO OO   O  OOO OOOOO  O O
+ O  O OO   O O  O  O     OOOOO OOOOO O    O O    
+ OOO    OO OOOOOOO   OO O   OO O    OOO   O  OO  
+   O  O     OO  OOOOOOO OOO O  OOOO OOOOOOOOOOOOO
+O  OOO OO O  O   OO      OO OOO  O   OO  O    O  
+OOOO OOOO OO O    O OO    O      O O     OOOO    
+O      O    OOOO  OO OOO  O OOOOOO  OOO O  O OOOO
+  OO O O  O    O O OO  O OO  O  O O   O    O     
+O OO  OOOO OO  O OO O  O   O  O O  OOO OO OOO OOO
