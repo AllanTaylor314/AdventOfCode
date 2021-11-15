@@ -13,6 +13,8 @@ class MemDict(dict):
         super().__init__(*args)
     def __getitem__(self, i):
         return self.get(i,0)
+    def __repr__(self):
+        return super().__repr__()
 
 class Intcode:
     def __init__(self, code):
