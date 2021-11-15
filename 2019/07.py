@@ -1,74 +1,56 @@
 from itertools import permutations
+from Intcode import Intcode,load_intcode
 
+CODE=load_intcode('07.txt')
 
-def intcode(og_list, input_list):
-    ri = og_list.copy()
-    i = 0
-    out = []
-    while i < len(ri):
-        op_par = ri[i]
-        op = op_par % 100
-        par = [0] * 10 + list(map(int, str(op_par // 100)))
-        par.reverse()
-        if op == 1:
-            #print(ri[i:i + 4])
-            ri[ri[i + 3]] = (ri[i + 1] if par[0] else ri[ri[i + 1]]) + \
-                (ri[i + 2] if par[1] else ri[ri[i + 2]])
-            i += 4
-        elif op == 2:
-            #print(ri[i:i + 4])
-            ri[ri[i + 3]] = (ri[i + 1] if par[0] else ri[ri[i + 1]]) * \
-                (ri[i + 2] if par[1] else ri[ri[i + 2]])
-            i += 4
-        elif op == 3:
-            #print(ri[i:i + 2])
-            # INPUT HERE:
-            ri[ri[i + 1]] = input_list.pop(0)
-            i += 2
-        elif op == 4:
-            #print(ri[i:i + 2])
-            out.append(ri[ri[i + 1]])
-            i += 2
-        elif op == 5:
-            if (ri[i + 1] if par[0] else ri[ri[i + 1]]):
-                i = (ri[i + 2] if par[1] else ri[ri[i + 2]])
-            else:
-                i += 3
-        elif op == 6:
-            if (ri[i + 1] if par[0] else ri[ri[i + 1]]) == 0:
-                i = (ri[i + 2] if par[1] else ri[ri[i + 2]])
-            else:
-                i += 3
-        elif op == 7:
-            ri[ri[i + 3]] = int((ri[i + 1] if par[0] else ri[ri[i + 1]])
-                                < (ri[i + 2] if par[1] else ri[ri[i + 2]]))
-            i += 4
-        elif op == 8:
-            ri[ri[i + 3]] = int((ri[i + 1] if par[0] else ri[ri[i + 1]])
-                                == (ri[i + 2] if par[1] else ri[ri[i + 2]]))
-            i += 4
-        elif op == 99:
-            # print('HALT')
-            break
+class Amplifier(Intcode):
+    def __init__(self,phase,next_amp=None):
+        super().__init__(CODE)
+        self.next_amp=next_amp
+        self._in_q.put(phase)
+    def _4(s):
+        if s.next_amp is None or s.next_amp.halted:
+            s._out_q.put(s._code[s.par(1)])
         else:
-            print('?')
-            i += 1
-    return out
+            s.next_amp.input(s._code[s.par(1)])
+        s._i+=2
 
-
-with open("07.txt") as file:
-    raw_data = file.read()
-ri = list(map(int, raw_data.split(',')))
-
-amp_out = []
+amp_out=[]
 for a, b, c, d, e in permutations(range(5)):
-    oa, = intcode(ri, [a, 0])
-    ob, = intcode(ri, [b, oa])
-    oc, = intcode(ri, [c, ob])
-    od, = intcode(ri, [d, oc])
-    oe, = intcode(ri, [e, od])
-    amp_out.append(oe)
-
-# print(amp_out)
+    E=Amplifier(e)
+    D=Amplifier(d,E)
+    C=Amplifier(c,D)
+    B=Amplifier(b,C)
+    A=Amplifier(a,B)
+    A.input(0)
+    A.run()
+    B.run()
+    C.run()
+    D.run()
+    E.run()
+    amp_out.append(E.output())
 print("Part 1:", max(amp_out))
-# 70597
+
+amp2_out=[]
+for a, b, c, d, e in permutations(range(5,10)):
+    A=Amplifier(a)
+    B=Amplifier(b)
+    C=Amplifier(c)
+    D=Amplifier(d)
+    E=Amplifier(e)
+    A.next_amp=B
+    B.next_amp=C
+    C.next_amp=D
+    D.next_amp=E
+    E.next_amp=A
+    A.input(0)
+    while not all([A.halted,B.halted,C.halted,D.halted,E.halted]):
+        A.run()
+        B.run()
+        C.run()
+        D.run()
+        E.run()
+        if all([A.awaiting_input,B.awaiting_input,C.awaiting_input,D.awaiting_input,E.awaiting_input]):
+            print('All awaiting')  # Should never happen
+    amp2_out.append(E.output())
+print("Part 2:",max(amp2_out))
