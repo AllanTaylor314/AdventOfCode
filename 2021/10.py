@@ -1,23 +1,3 @@
-class StackNode:
-    def __init__(self,value):
-        self.value=value
-        self.next_node=None
-class Stack:
-    def __init__(self):
-        self.head=None
-    def push(self,value):
-        node=StackNode(value)
-        node.next_node=self.head
-        self.head=node
-    def pop(self):
-        node=self.head
-        self.head=node.next_node
-        return node.value
-    def peek(self):
-        return self.head.value
-    def empty(self):
-        return self.head is None
-
 OC={
     "(":")",
     "[":"]",
@@ -30,7 +10,6 @@ POINTS={
     "}":1197,
     ">":25137,
 }
-
 POINTS2={
     ")":1,
     "]":2,
@@ -43,19 +22,17 @@ with open('10.txt') as file:
 points=0
 scores=[]
 for line in data.splitlines():
-    stack=Stack()
+    stack=[]
     for i,c in enumerate(line):
         if c in OC:
-            stack.push(c)
+            stack.append(c)
         else:
-            if (top:=OC[stack.peek()]) != c:
-                print(f'Expected {top}, got {c}')
+            if OC[stack.pop()] != c:
                 points+=POINTS[c]
                 break
-            stack.pop()
     else:
         score=0
-        while not stack.empty():
+        while stack:
             score*=5
             score+=POINTS2[OC[stack.pop()]]
         scores.append(score)
