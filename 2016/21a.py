@@ -17,7 +17,9 @@ def swap_pos(a, b):
 
 def swap_letter(a, b):
     """swap letter X with letter Y"""
-    password[password.index(a)], password[password.index(b)] = b, a
+    ia=password.index(a)
+    ib=password.index(b)
+    password[ia], password[ib] = b, a
 
 
 def rotate_steps(direction, steps):
