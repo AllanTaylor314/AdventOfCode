@@ -1,17 +1,16 @@
 from queue import Queue
+from collections import defaultdict
 
 with open('12.txt') as file:
     data = file.read()
 
 edges=[tuple(l.split('-')) for l in data.splitlines()]
-nodes={}
+nodes=defaultdict(set)
 for a,b in edges:
-    if a not in nodes: nodes[a]=set()
-    if b not in nodes: nodes[b]=set()
     nodes[a].add(b)
     nodes[b].add(a)
-for nset in nodes.values():
-    nset.discard('start')  # No backtrack - simplifies part 2
+for n in nodes['start']:
+    nodes[n].discard('start')  # No backtrack - simplifies part 2
 
 q=Queue()
 q.put(['start'])
