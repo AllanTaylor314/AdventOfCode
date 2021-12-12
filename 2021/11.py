@@ -37,8 +37,9 @@ while True:
                 assert (x,y) in flashed
                 grid[y][x]=0
     step+=1
-    if len(flashed)==100: break
+    if len(flashed)==len(rx)*len(ry): break
 print('Final step:',step)
 print("\n".join("".join(map(str,line)) for line in grid))
+print()
 print('Part 1:',flashes)
 print('Part 2:',step)
