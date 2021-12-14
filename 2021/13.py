@@ -16,7 +16,7 @@ class Paper:
     def __repr__(self):
         mx=range(max(self.points)[0]+1)
         my=range(max(self.points,key=lambda a: a[1])[1]+1)
-        return"\n".join("".join(' █'[(x,y)in self.points]for x in mx)for y in my)
+        return"\n".join("".join(2*' █'[(x,y)in self.points]for x in mx)for y in my)
 
 with open('13.txt') as file:
     data = file.read()
