@@ -10,6 +10,8 @@ class BestWeightToPoint:
         self.loc_dict[x,y]=self
     def __repr__(self):
         return f"<{self.x,self.y}: risk={self.risk}; weight={self.weight}>"
+    def __lt__(self, other):
+        return self.weight<other.weight
     def update_best_path(self):
         x,y=self.x,self.y
         adjs=(self.loc_dict[x+dx,y+dy] for dx,dy in DXDY if (x+dx,y+dy) in self.loc_dict)
