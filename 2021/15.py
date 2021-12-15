@@ -1,44 +1,45 @@
+import numpy as np
+from collections import defaultdict
 DXDY=((0,-1),(0,1),(-1,0),(1,0))
 
-class BestWeightToPoint:
-    loc_dict={}
-    def __init__(self,x,y,r):
-        self.x=x
-        self.y=y
-        self.weight=float('inf')
-        self.risk=r%9 or 9
-        self.loc_dict[x,y]=self
-    def __repr__(self):
-        return f"<{self.x,self.y}: risk={self.risk}; weight={self.weight}>"
-    def __lt__(self, other):
-        return self.weight<other.weight
-    def update_best_path(self):
-        x,y=self.x,self.y
-        adjs=(self.loc_dict[x+dx,y+dy] for dx,dy in DXDY if (x+dx,y+dy) in self.loc_dict)
-        self.weight=min(self.weight,min(adjs).weight+self.risk)
+def best_path(x,y):
+    global grid, loc_dict
+    adjs=(loc_dict[x+dx,y+dy] for dx,dy in DXDY)
+    return min(loc_dict[x,y],min(adjs)+(grid[x,y]%9 or 9))
+
+def sweeping_xy(d):
+    dr=range(d)
+    for r in range(2*d):
+        for x in range(r+1):
+            y=r-x
+            if x in dr and y in dr:
+                yield x,y
 
 with open('15.txt') as file:
     data = file.read()
-grid = [list(map(int,row)) for row in data.splitlines()]
+grid = np.array([list(map(int,row)) for row in data.splitlines()])
+loc_dict = defaultdict(lambda: float('inf'))
+loc_dict[0,0]=0
 
-
-PART2=True
+PART2=False
 if PART2:
-    import numpy as np
-    ng=np.array(grid)
-    row=np.concatenate(tuple(ng+i for i in range(5)),axis=1)
+    row=np.concatenate(tuple(grid+i for i in range(5)),axis=1)
     grid=np.concatenate(tuple(row+i for i in range(5)),axis=0)
 
 TARGET=(len(grid[0])-1,len(grid)-1)
 
-q=[]
-for x in range(len(grid[0])):
-    for y in range(len(grid)):
-        q.append(BestWeightToPoint(x,y,grid[y][x]))
-q[0].weight=0  # Set 0,0 cost to 0
-for _ in range(10):
-    for p in q:
-        p.update_best_path()
-    print(p)
-
-print(f'Part {1+int(PART2)}:',BestWeightToPoint.loc_dict[TARGET].weight)
+updates=True
+iterations=0
+sweep=tuple(sweeping_xy(len(grid)))
+while updates:
+    updates=False
+    iterations+=1
+    for x,y in sweep:
+        new_best=best_path(x,y)
+        if new_best<loc_dict[x,y]:
+            loc_dict[x,y]=new_best
+            updates=True
+    print(end='.',flush=True)
+print()
+print(f'Part {1+int(PART2)}:',loc_dict[TARGET])
+print(f'(Used {iterations} iterations to fully solve all spaces)')
