@@ -1,5 +1,9 @@
 import numpy as np
 from collections import defaultdict
+
+PART2=False
+VISUALISE=False
+
 DXDY=((0,-1),(0,1),(-1,0),(1,0))
 
 def best_path(x,y):
@@ -21,7 +25,6 @@ grid = np.array([list(map(int,row)) for row in data.splitlines()])
 loc_dict = defaultdict(lambda: float('inf'))
 loc_dict[0,0]=0
 
-PART2=False
 if PART2:
     row=np.concatenate(tuple(grid+i for i in range(5)),axis=1)
     grid=np.concatenate(tuple(row+i for i in range(5)),axis=0)
@@ -43,3 +46,18 @@ while updates:
 print()
 print(f'Part {1+int(PART2)}:',loc_dict[TARGET])
 print(f'(Used {iterations} iterations to fully solve all spaces)')
+
+### Visualise ###
+rev_path=[TARGET]
+next_xy=TARGET
+while next_xy!=(0,0):
+    c=rev_path[-1]
+    x,y=c
+    next_xy=min(((x+dx,y+dy) for dx,dy in DXDY if (x+dx,y+dy) not in rev_path),key=loc_dict.__getitem__)
+    rev_path.append(next_xy)
+if VISUALISE:
+    path_set=set(rev_path)
+    for y in range(len(grid)):
+        for x in range(len(grid[0])):
+            print(end=' #'[(x,y) in path_set])
+        print()
