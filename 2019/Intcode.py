@@ -17,6 +17,8 @@ class MemDict(dict):
         return super().__repr__()
 
 class Intcode:
+    class InvalidOpcodeException(Exception):
+        pass
     def __init__(self, code):
         self._code = MemDict(enumerate(code))
         self._i = 0
@@ -96,8 +98,15 @@ class Intcode:
     def run(s):
         c=s._code
         while s._i<len(c) and not s.halted and not s.awaiting_input:
-            getattr(s,f"_{s._code[s._i]%100}")()
-            #print(s._code)
+            try:
+                getattr(s,f"_{s._code[s._i]%100}")()
+            except AttributeError:
+                raise s.InvalidOpcodeException(f"'{s._code[s._i]}' is an invalid op")
+    def ascii_out(s):
+        out=''
+        while s.has_output():
+            out+=chr(s.output())
+        return out
 
 
 def test(*code):
