@@ -56,12 +56,31 @@ def process_tree(tree):
     if pid==7:
         return int(a==b)
 
-with open('16.txt') as file:
-    data = file.read()
+def tree_view(tree,solve=False,depth=0,last=True,depths=set(),OPS='+*v^ ><='):
+    """Prints the tree (and optionally, the solved value at each node)
+    tree: tuple(version, type_id, [subtrees, ...]|int)
+    solve: bool - prints the calculated value of each node"""
+    depths.add(depth)
+    if last: depths.discard(depth)
+    ver,pid,val = tree
+    out="".join((' │'[d in depths] for d in range(depth)))\
+        +('├└'[last])+f"V:{ver};T:{pid} ({OPS[pid]})"
+    if isinstance(val,int):
+        print(out[:-4],f"[{val}]")
+    else:
+        if solve:
+            out+=f" = {process_tree(tree)}"
+        print(out)
+        for v in val[:-1]:
+            tree_view(v,solve,depth+1,False)
+        tree_view(val[-1],solve,depth+1)
 
-packet=bin(int(data,16))[2:]
-packet='0'*((-len(packet))%4)+packet
+with open('16.txt') as file:
+    data = file.read().strip()
+
+packet=format(int(data,16),f'0{len(data)*4}b')
 tree,_ = parse_packet(packet)
 
 print('Part 1:',VERSION_SUM)
 print('Part 2:',process_tree(tree))
+tree_view(tree,True)
