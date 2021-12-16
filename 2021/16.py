@@ -59,7 +59,9 @@ def process_tree(tree):
 with open('16.txt') as file:
     data = file.read()
 
-tree,_ = parse_packet(bin(int(data,16)),2)
+packet=bin(int(data,16))[2:]
+packet='0'*((-len(packet))%4)+packet
+tree,_ = parse_packet(packet)
 
 print('Part 1:',VERSION_SUM)
 print('Part 2:',process_tree(tree))
