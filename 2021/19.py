@@ -15,9 +15,6 @@ def orientations(xyz):
     return out
 
 IDENTITY = np.array([[1,0,0],[0,1,0],[0,0,1]])
-ROT_X = np.array([[1,0,0],[0,0,-1],[0,1,0]])
-ROT_Y = np.array([[0,0,-1],[0,1,0],[1,0,0]])
-ROT_Z = np.array([[0,-1,0],[1,0,0],[0,0,1]])
 ROTATIONS = [r for r in map(np.array,orientations(IDENTITY)) if np.linalg.det(r)==1]
 
 class Scanner:
@@ -49,20 +46,6 @@ class Scanner:
                 l.append(tuple(a-b))
             dist,count = Counter(l).most_common(1)[0]
             if count>=12: return r_index,dist
-
-def overlap(a,b):
-    """Points (frame of ref: Scanner(a)) seen by a and b"""
-    global scanners, prob_rot_dists
-    r,os = prob_rot_dists[a][b]
-    return (set(map(tuple,scanners[0].beacons))&
-            set(map(tuple,(scanners[2].beacons @ ROTATIONS[r])+np.array(os))))
-
-def join(a,b):
-    """Point seen by a or b, relative to a"""
-    global scanners, prob_rot_dists
-    r,os = prob_rot_dists[a][b]
-    return (set(map(tuple,scanners[0].beacons))|
-            set(map(tuple,(scanners[2].beacons @ ROTATIONS[r])+np.array(os))))
 
 with open('19.txt') as file:
     data = file.read()
