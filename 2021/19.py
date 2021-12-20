@@ -21,24 +21,8 @@ class Scanner:
     def __init__(self, sid, beacons):
         self.scan_id = sid
         self.beacons = np.array(beacons)
-        self.rotation = None
-        self.position = None
-    def global_positions(self, xyz=None, rotation=None):
-        if rotation is None:
-            if self.rotation is None: raise ValueError
-            rotation = self.rotation
-        if xyz is None:
-            if self.position is None: raise ValueError
-            xyz = self.position
-        return list(map(tuple,self.beacons @ rotation + xyz))
-    def overlap(self,other):
-        return set(self.differences)&set(other.differences)
     def __repr__(self):
         return f"Scanner({self.scan_id}, \n{self.beacons}\n)"
-    def all_dists(self,other):
-        for r in ROTATIONS:
-            for a,b in product(self.beacons,other.beacons @ r):
-                yield sum(np.abs(a-b))
     def probable_rot_dist(self,other):
         for r_index,r in enumerate(ROTATIONS):
             l=[]
@@ -66,7 +50,7 @@ for i,s0 in scanners.items():
         if res is not None:
             prob_rot_dists[i][j] = res
 
-def positions_relative_to_a(a=0,ignore=None):
+def relative_beacon_positions(a=0,ignore=None):
     if ignore is None: ignore = set()
     ignore.add(a)
     global prob_rot_dists, scanners
@@ -75,12 +59,12 @@ def positions_relative_to_a(a=0,ignore=None):
         if b in ignore: continue
         r = ROTATIONS[roti]
         p = np.array(offset)
-        rpos = positions_relative_to_a(b,ignore)
+        rpos = relative_beacon_positions(b,ignore)
         output.append(rpos @ r + p)
         ignore.add(b)
     return np.concatenate(output)
 
-NP_GLOBAL_POSITIONS = positions_relative_to_a()
+NP_GLOBAL_POSITIONS = relative_beacon_positions()
 GLOBAL_POSITIONS_SET = set(map(tuple,NP_GLOBAL_POSITIONS))
 print('Part 1:',len(GLOBAL_POSITIONS_SET))
 
