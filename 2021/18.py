@@ -103,9 +103,6 @@ class Tree:
         Reduces tree to keep it as a valid Snailfish Number"""
         self.root = Node(x=self.root,y=Node.build_from(other))
         self.reduce()
-        temp_repr = repr(self)
-        self.reduce()
-        assert repr(self)==temp_repr
         return self
     def __repr__(self):
         """The tree is literally a root node and some wrapper functions,
