@@ -89,15 +89,14 @@ def steps_to_final(state):
         possible_costs.append(cost+steps_to_final(new_state))
     return min(possible_costs)
 
-#### INPUT #### Left is top, right is bottom
+with open('23.txt') as file:
+    data = file.read()
+letters = [c for c in data if c.isalpha()]
+rows = letters[:4],letters[4:]
+
 state1 = (
     (None,)*11,
-    (B,B),
-    (A,C),
-    (A,D),
-    (D,C)
-)
-##############
+) + tuple(zip(*rows))
 
 ROOM_SIZE = len(state1[1])
 target_state = (
