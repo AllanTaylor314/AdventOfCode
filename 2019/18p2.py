@@ -1,8 +1,8 @@
 from collections import deque
-from itertools import chain, permutations
+from itertools import chain
 from time import perf_counter
 
-PART2 = True
+PART2 = False
 
 def sort_str(s):
     return "".join(sorted(set(s)))
@@ -87,28 +87,7 @@ t2 = perf_counter()
 print(f'BFS in {t2-t1:.4f}s',flush=True)
 
 #####################################################################################
-#for i,loc in enumerate(starts):
-    #rev_keys[loc]=i
-
-#q=deque([(tuple(starts),0,'')])
-#checked=0
-#while q:
-    #locs,steps,keyring = q.popleft()
-    #if keyring==A2Z:
-        #print('Maybe',steps)
-        #continue
-    #for i,xy in enumerate(locs):
-        #key = rev_keys[xy]
-        #for tar in A2Z:
-            #if (key,tar) in step_reqs and tar not in keyring: # Go where we can and haven't already
-                #more_steps,doors = step_reqs[key,tar]
-                #if can_go(doors,keyring):
-                    #locls = list(locs)
-                    #locls[i]=keys[tar]
-                    #q.append((tuple(locls),steps+more_steps,sort_str(keyring+tar)))
-    #checked+=1
-    #if checked%10000==0:print(f'Checked {checked} in {perf_counter()-t2:.2f}s')
-#####################################################################################
+# Every direct dependency
 start_to_key_dependency = {}
 sector_keys = ['']*len(starts)
 for i,xy in enumerate(starts):
@@ -124,26 +103,6 @@ def full_dependency(key):
     return sort_str(doors + ''.join(map(full_dependency,doors)))
 full_dependencies = {_:full_dependency(_) for _ in A2Z}
 
-# A couple of attempts at a global ordering
-potential_order = ''
-while len(potential_order)<len(A2Z):
-    for key in A2Z:
-        if key in potential_order: continue
-        if all(_ in potential_order for _ in full_dependencies[key]):
-            potential_order+=key
-ordered_sector_keys = [''.join(sorted(_,key=potential_order.index)) for _ in sector_keys]
-
-order = []
-processed = set()
-while len(processed)<len(A2Z):
-    new = []
-    for key in A2Z:
-        if key in processed: continue
-        if not set(full_dependencies[key])-processed:
-            new.append(key)
-    order.append(''.join(new))
-    processed.update(new)
-
 # Every local key that this key depends on (directly or indirectly)
 local_dependencies = [{s:sort_str(set(full_dependencies[s])&set(sector)) for s in sector} for sector in sector_keys]
 full_local_dependency_dict = {}
@@ -151,6 +110,7 @@ for _ in local_dependencies: full_local_dependency_dict.update(_)
 
 
 def validate_local_order(local_order):
+    """Verifies that this order is """
     global full_local_dependency_dict
     for i,key in enumerate(local_order):
         # Any dependency that hasn't been met
@@ -167,22 +127,26 @@ def path_len(start_index,path):
     return total
 
 def sector_permutations(sector,used=''):
-    if not sector:
+    if not sector: # Nothing more to permute
         yield used
         return
     for i,k in enumerate(sector):
-        if validate_local_order(used+k):
+        if not set(full_local_dependency_dict[k])-set(used): # Can go to k?
             yield from sector_permutations(sector[:i]+sector[i+1:],used+k)
 
 t3 = perf_counter()
 print(f'Generated dependencies in {t3-t2:.4f}s',flush=True)
 
 total_steps = 0
+total_paths = 0
 for i,sector in enumerate(sector_keys):
-    possible_steps = []
+    possible_steps = float('inf')
     for path in sector_permutations(sector):
-        possible_steps.append(path_len(i,path))
-    total_steps+=min(possible_steps)
+        possible_steps = min(possible_steps,path_len(i,path))
+        total_paths+=1
+        if total_paths%50000==0:
+            print(f"Tried {total_paths} paths... {path} ({path_len(i,path)}), best={possible_steps}",flush=True)
+    total_steps+=possible_steps
 
 t4 = perf_counter()
 print(f"Part {1+PART2}: {total_steps} (Time: {t4-t0:.2f}s)")
