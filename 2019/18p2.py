@@ -1,8 +1,9 @@
 from collections import deque
 from itertools import chain
 from time import perf_counter
+from functools import cache
 
-PART2 = False
+PART2 = True
 
 def sort_str(s):
     return "".join(sorted(set(s)))
@@ -23,6 +24,20 @@ with open('18.txt') as file:
 ###C#...###J#
 #fEbA.#.FgHi#
 #############"""
+#data="""########################
+#...............b.C.D.f#
+#.######################
+#.....@.a.B.c.d.A.e.F.g#
+########################""" # 132
+#data="""#################
+#i.G..c...e..H.p#
+########.########
+#j.A..b...f..D.o#
+########@########
+#k.E..a...g..B.n#
+########.########
+#l.F..d...h..C.m#
+#################""" # P1:136
 
 maze = [list(_) for _ in data.splitlines()]
 
@@ -126,7 +141,7 @@ def path_len(start_index,path):
         curr = nex
     return total
 
-def sector_permutations(sector,used=''):
+def sector_permutations(sector,used='',best=float('inf')):
     if not sector: # Nothing more to permute
         yield used
         return
@@ -134,8 +149,39 @@ def sector_permutations(sector,used=''):
         if not set(full_local_dependency_dict[k])-set(used): # Can go to k?
             yield from sector_permutations(sector[:i]+sector[i+1:],used+k)
 
+@cache
+def sector_len_permutations(sector_id, sector):
+    if not sector:
+        return 0
+    outcomes = [1e4]
+    for i,k in enumerate(sector):
+        steps, reqs = step_reqs.get((sector_id,k),(0,'-'))
+        reqs = full_local_dependency_dict[k]
+        if not reqs:
+            outcomes.append(steps+_rec_sec_len(sector[:i]+sector[i+1:],k,1e4))
+    return min(outcomes)
+
+@cache
+def _rec_sec_len(sector,used,best):
+    if not sector:
+        return 0
+    #if best<0:
+        #return float('inf')
+    best_outcome = 1e4
+    for i,k in enumerate(sector):
+        steps, reqs = step_reqs.get((used[-1],k),(0,'-'))
+        reqs = full_local_dependency_dict[k]
+        if not set(reqs)-set(used):
+            outcome = steps+_rec_sec_len(sector[:i]+sector[i+1:],used+k,best-steps)
+            if outcome<best_outcome:
+                best_outcome = outcome
+    return best_outcome
+
 t3 = perf_counter()
 print(f'Generated dependencies in {t3-t2:.4f}s',flush=True)
+
+print('Rec soln',sum(sector_len_permutations(*_) for _ in enumerate(sector_keys)),flush=True)
+t4 = perf_counter()
 
 total_steps = 0
 total_paths = 0
@@ -146,7 +192,8 @@ for i,sector in enumerate(sector_keys):
         total_paths+=1
         if total_paths%50000==0:
             print(f"Tried {total_paths} paths... {path} ({path_len(i,path)}), best={possible_steps}",flush=True)
+    print(f"Sector {i}: {possible_steps}")
     total_steps+=possible_steps
 
-t4 = perf_counter()
-print(f"Part {1+PART2}: {total_steps} (Time: {t4-t0:.2f}s)")
+t5 = perf_counter()
+print(f"Part {1+PART2}: {total_steps} (Time: {t5-t0:.2f}s)")
