@@ -1,4 +1,5 @@
-from queue import Queue
+from collections import deque
+from time import perf_counter
 A2Z="abcdefghijklmnopqrstuvwxyz"
 
 
@@ -33,11 +34,12 @@ for y,row in enumerate(maze):
 rev_doors = {loc:d for d,loc in doors.items()}
 rev_keys = {loc:k for k,loc in keys.items()}
 
+time_start = perf_counter()
 visited = set()
-queue = Queue()
-queue.put(start+('',0))
-while not queue.empty():
-    xykd = queue.get_nowait()
+queue = deque()
+queue.append(start+('',0))
+while queue:
+    xykd = queue.popleft()
     x,y,k,d = xykd
     xyk=x,y,k
     if xyk in visited:continue
@@ -49,10 +51,11 @@ while not queue.empty():
         if (nx,ny,k) in visited:
             pass
         elif (nx,ny) in passages:
-            queue.put((nx,ny,k,d+1))
+            queue.append((nx,ny,k,d+1))
         elif (nx,ny) in rev_doors and rev_doors[nx,ny].lower() in k:
-            queue.put((nx,ny,k,d+1))
+            queue.append((nx,ny,k,d+1))
     visited.add(xyk)
     if len(visited)%10000==0:
         print(f'Visited {len(visited)} places', flush=True)
-print('Part 1:',d,flush=True)
+time_end = perf_counter()
+print(f'Part 1: {d} ({time_end-time_start} s)',flush=True)

@@ -1,7 +1,7 @@
 from collections import deque
+import heapq
 from itertools import chain
 from time import perf_counter
-from functools import cache
 
 PART2 = True
 
@@ -14,30 +14,6 @@ def can_go(doors, keys):
 t0 = perf_counter()
 with open('18.txt') as file:
     data = file.read()
-#data = """#########
-#b.A.@.a#
-#########"""
-#data="""#############
-#DcBa.#.GhKl#
-#.###...#I###
-#e#d#.@.#j#k#
-###C#...###J#
-#fEbA.#.FgHi#
-#############"""
-#data="""########################
-#...............b.C.D.f#
-#.######################
-#.....@.a.B.c.d.A.e.F.g#
-########################""" # 132
-#data="""#################
-#i.G..c...e..H.p#
-########.########
-#j.A..b...f..D.o#
-########@########
-#k.E..a...g..B.n#
-########.########
-#l.F..d...h..C.m#
-#################""" # P1:136
 
 maze = [list(_) for _ in data.splitlines()]
 
@@ -125,7 +101,7 @@ for _ in local_dependencies: full_local_dependency_dict.update(_)
 
 
 def validate_local_order(local_order):
-    """Verifies that this order is """
+    """Verifies that this order is possible, based on the doors needed to get to key"""
     global full_local_dependency_dict
     for i,key in enumerate(local_order):
         # Any dependency that hasn't been met
@@ -149,7 +125,10 @@ def sector_permutations(sector,used='',best=float('inf')):
         if not set(full_local_dependency_dict[k])-set(used): # Can go to k?
             yield from sector_permutations(sector[:i]+sector[i+1:],used+k)
 
-@cache
+
+t3 = perf_counter()
+print(f'Generated dependencies in {t3-t2:.4f}s',flush=True)
+############ Recursive attempt ##########################
 def sector_len_permutations(sector_id, sector):
     if not sector:
         return 0
@@ -161,28 +140,50 @@ def sector_len_permutations(sector_id, sector):
             outcomes.append(steps+_rec_sec_len(sector[:i]+sector[i+1:],k,1e4))
     return min(outcomes)
 
-@cache
-def _rec_sec_len(sector,used,best):
+def _rec_sec_len(sector,used,to_beat):
     if not sector:
         return 0
-    #if best<0:
-        #return float('inf')
+    if to_beat<0:
+        return 1e4
     best_outcome = 1e4
     for i,k in enumerate(sector):
         steps, reqs = step_reqs.get((used[-1],k),(0,'-'))
         reqs = full_local_dependency_dict[k]
         if not set(reqs)-set(used):
-            outcome = steps+_rec_sec_len(sector[:i]+sector[i+1:],used+k,best-steps)
+            outcome = steps+_rec_sec_len(sector[:i]+sector[i+1:],used+k,min(to_beat,best_outcome)-steps)
             if outcome<best_outcome:
                 best_outcome = outcome
     return best_outcome
 
-t3 = perf_counter()
-print(f'Generated dependencies in {t3-t2:.4f}s',flush=True)
-
-print('Rec soln',sum(sector_len_permutations(*_) for _ in enumerate(sector_keys)),flush=True)
+if PART2:soln = sum(sector_len_permutations(*_) for _ in enumerate(sector_keys))
 t4 = perf_counter()
-
+if PART2:print(f'Recursive solution Part 2: {soln} ({t4-t3:.4f}s)',flush=True)
+##################################################################
+total_steps = 0
+for i,letters in enumerate(sector_keys):
+    complete_keyrings = {}
+    q = [(step_reqs[i,k][0],k) for k in letters if full_local_dependency_dict[k]=='']
+    heapq.heapify(q)
+    letset = set(letters)
+    while q:
+        if len(q)%5000==0:print(f'{len(q)} queued; {len(complete_keyrings):5d} complete (t={perf_counter()-t4:3.4f})')
+        st,ks = heapq.heappop(q)
+        complete_keyrings[sort_str(ks)]=st
+        if len(ks)==len(letters):
+            print(f'Sector {i} solved with {st} steps (path={ks})')
+            total_steps+=st
+            break
+        kset = set(ks)
+        for nk in letset-kset:
+            if not set(full_local_dependency_dict[nk])-kset:
+                nst = st+step_reqs[ks[-1],nk][0]
+                nks = ks+nk
+                if sort_str(nks) not in complete_keyrings:
+                    heapq.heappush(q,(nst,nks))
+t5 = perf_counter()
+print(f'Part {1+PART2}: {total_steps} ({t5-t4:.4f}s)')
+##################################################################
+if not PART2: quit() # Might take forever for part 1, so won't bother
 total_steps = 0
 total_paths = 0
 for i,sector in enumerate(sector_keys):
@@ -195,5 +196,5 @@ for i,sector in enumerate(sector_keys):
     print(f"Sector {i}: {possible_steps}")
     total_steps+=possible_steps
 
-t5 = perf_counter()
-print(f"Part {1+PART2}: {total_steps} (Time: {t5-t0:.2f}s)")
+t6 = perf_counter()
+print(f"Part {1+PART2}: {total_steps} (Time: {t6-t5:.2f}s)")
