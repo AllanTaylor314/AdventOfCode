@@ -42,3 +42,62 @@ eris = Conway(start)
 while not eris.repeat:
     eris.evolve()
 print("Part 1:",eris.biodiversity())
+
+def adjacent(cell):
+    """
+      01234
+    0 44444
+    1 44844
+    2 48+84
+    3 44844
+    4 44444
+    """
+    d,x,y = cell # depth and position
+    contenders = {(d,x-1,y),(d,x+1,y),(d,x,y-1),(d,x,y+1)}
+    if (d,2,2) in contenders:
+        if x==2:
+            ny = 4 if y==3 else 0
+            new=[(d+1,nx,ny) for nx in range(5)]
+        if y==2:
+            nx = 4 if x==3 else 0
+            new=[(d+1,nx,ny) for ny in range(5)]
+        contenders.remove((d,2,2))
+        contenders.update(new)
+    for con in list(contenders):
+        cd,cx,cy=con
+        if cx==-1:
+            contenders.discard(con)
+            contenders.add((d-1,1,2))
+        if cx==5:
+            contenders.discard(con)
+            contenders.add((d-1,3,2))
+        if cy==-1:
+            contenders.discard(con)
+            contenders.add((d-1,2,1))
+        if cy==5:
+            contenders.discard(con)
+            contenders.add((d-1,2,3))
+    return contenders
+def display(struct):
+    mind = min(struct)[0]
+    maxd = max(struct)[0]
+    for d in range(mind,maxd+1):
+        print(f'Depth {d}:')
+        for y in range(5):
+            for x in range(5):
+                print(end='?' if x==2==y else'#' if (d,x,y) in struct else '.')
+            print()
+
+lives = {(0,x,y) for y,line in enumerate(start.splitlines()) for x,c in enumerate(line) if c==LIVE}
+for i in range(200): # 200 mins
+    print(f'Minute {i}: {len(lives)} bugs')
+    to_check = set(lives)
+    for l in lives:
+        to_check.update(adjacent(l))
+    new_lives = set()
+    for cell in to_check:
+        unlen = len(lives&adjacent(cell))
+        if unlen==1 or (unlen==2 and cell not in lives):
+            new_lives.add(cell)
+    lives=new_lives
+print('Part 2:',len(lives))
