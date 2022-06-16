@@ -1,4 +1,4 @@
-from Intcode import Intcode,load_intcode,Queue
+from Intcode import Intcode,load_intcode,deque
 
 class NAT():
     X=None
@@ -6,7 +6,7 @@ class NAT():
     _Y=None
     _X=None
     @classmethod
-    def put(cls,value):
+    def append(cls,value):
         if cls.X is None and cls.Y is not None:
             print('Part 1:',value)
         cls.X=cls.Y
@@ -17,8 +17,8 @@ class NAT():
         if cls._Y is not None and cls._Y==cls.Y:
             print('Part 2:',cls.Y)
             quit()
-        NetworkedComputer.IP[0].put(cls.X)
-        NetworkedComputer.IP[0].put(cls.Y)
+        NetworkedComputer.IP[0].append(cls.X)
+        NetworkedComputer.IP[0].append(cls.Y)
         cls._X,cls._Y=cls.X,cls.Y
 
 
@@ -36,11 +36,11 @@ class NetworkedComputer(Intcode):
         getattr(s,f"_{s._code[s._i]%100}")()
     def _3(s):
         """Read packet queue, or -1 if no queue"""
-        if s._in_q.empty():
+        if not s._in_q:
             out=-1
             s.IDLE+=1
         else:
-            out=s._in_q.get_nowait()
+            out=s._in_q.popleft()
         s._code[s.par(1)]=out
         s._i+=2
     def _4(s):
@@ -49,8 +49,8 @@ class NetworkedComputer(Intcode):
         if len(s.out_buffer)>=3:
             type(s).IDLE=0
             des,x,y,*s.out_buffer=s.out_buffer
-            s.IP[des].put(x)
-            s.IP[des].put(y)
+            s.IP[des].append(x)
+            s.IP[des].append(y)
         s._i+=2
 
 def check_idle():

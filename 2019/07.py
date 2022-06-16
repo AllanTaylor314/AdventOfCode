@@ -7,10 +7,10 @@ class Amplifier(Intcode):
     def __init__(self,phase,next_amp=None):
         super().__init__(CODE)
         self.next_amp=next_amp
-        self._in_q.put(phase)
+        self._in_q.append(phase)
     def _4(s):
         if s.next_amp is None or s.next_amp.halted:
-            s._out_q.put(s._code[s.par(1)])
+            s._out_q.append(s._code[s.par(1)])
         else:
             s.next_amp.input(s._code[s.par(1)])
         s._i+=2

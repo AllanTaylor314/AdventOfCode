@@ -1,41 +1,32 @@
 """
 Full Intcode computer
 """
-from queue import Queue
+from collections import deque, defaultdict
 
 def load_intcode(filename):
     with open(filename) as file:
         return list(map(int,file.read().split(',')))
 
-class MemDict(dict):
-    """A subclass of dict that returns 0 for any undefined indices"""
-    def __init__(self,*args):
-        super().__init__(*args)
-    def __getitem__(self, i):
-        return self.get(i,0)
-    def __repr__(self):
-        return super().__repr__()
-
 class Intcode:
     class InvalidOpcodeException(Exception):
         pass
     def __init__(self, code):
-        self._code = MemDict(enumerate(code))
+        self._code = defaultdict(int,enumerate(code))
         self._i = 0
         self.rel_base = 0
-        self._in_q = Queue()
-        self._out_q = Queue()
+        self._in_q = deque()
+        self._out_q = deque()
         self.halted = False
         self.awaiting_input = False
     def input(self, data):
         self.awaiting_input = False
-        self._in_q.put(data)
+        self._in_q.append(data)
     def has_output(self):
-        return not self._out_q.empty()
+        return bool(self._out_q)
     def output(self):
-        if self._out_q.empty():
+        if not self._out_q:
             raise IndexError
-        return self._out_q.get_nowait()
+        return self._out_q.popleft()
     
     def par(s,o):
         """Index of the parameter for item at o(ffset)"""
@@ -59,14 +50,14 @@ class Intcode:
         s._i+=4
     def _3(s):
         """Input"""
-        if s._in_q.empty():
+        if not s._in_q:
             s.awaiting_input=True
             return
-        s._code[s.par(1)]=s._in_q.get_nowait()
+        s._code[s.par(1)]=s._in_q.popleft()
         s._i+=2
     def _4(s):
         """Output"""
-        s._out_q.put(s._code[s.par(1)])
+        s._out_q.append(s._code[s.par(1)])
         #print(s._code[s.par(1)])
         s._i+=2
     def _5(s):

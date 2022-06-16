@@ -1,4 +1,4 @@
-import treelib
+#import treelib
 with open('06.txt') as file:
     data = file.read().splitlines()
 orbits = {_[1]: _[0] for _ in [__.split(')') for __ in data]}
