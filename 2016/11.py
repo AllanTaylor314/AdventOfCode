@@ -1,5 +1,5 @@
 from copy import deepcopy
-from queue import Queue
+from collections import deque
 from time import sleep
 from itertools import combinations
 NONE='None'
@@ -36,9 +36,8 @@ class State():
                self.floors==other.floors and\
                self.elevator_level==other.elevator_level
     def new_states(self):
-        self.steps+=1
         prev_state=self.prev_state
-        self.prev_state=self
+        self.prev_state=None  # So that deepcopy doesn't go beserk
         for item in self.floors[self.elevator_level]:
             for new_level in range(max(1,self.elevator_level-1),min(5,self.elevator_level+2)):
                 new=deepcopy(self)
@@ -47,6 +46,8 @@ class State():
                 new.floors[new_level].add(item)
                 if new.validate_state() and repr(new) not in self.past_states:
                     self.past_states.add(repr(new))
+                    new.prev_state=self
+                    new.steps+=1
                     yield new
         for items in combinations(tuple(self.floors[self.elevator_level]),r=2):
             for new_level in range(max(1,self.elevator_level-1),min(5,self.elevator_level+2)):
@@ -56,9 +57,16 @@ class State():
                 new.floors[new_level]|=set(items)
                 if new.validate_state() and repr(new) not in self.past_states:
                     self.past_states.add(repr(new))
+                    new.prev_state=self
+                    new.steps+=1
                     yield new
         self.prev_state=prev_state
-        self.steps-=1
+
+def print_previous_states(state):
+    if state is None: return
+    print_previous_states(state.prev_state)
+    print()
+    print(state)
 
 init_state_tuple=(
     ('SrG','SrM','PuG','PuM'),
@@ -84,24 +92,26 @@ for i,tupl in enumerate(init_state_tuple):
     target_state.floors[4]|=set(tupl)
 
 ################# PART 2 #################
-part2_floor1 = {'ElG','ElM','Li2G','Li2M'}
-init_state.floors[1]|=part2_floor1
-target_state.floors[4]|=part2_floor1
+#part2_floor1 = {'ElG','ElM','Li2G','Li2M'}
+#init_state.floors[1]|=part2_floor1
+#target_state.floors[4]|=part2_floor1
 ##########################################
 
-q=Queue()
-q.put(init_state)
+q=deque()
+q.append(init_state)
 max_step=0
-while size:=q.qsize():
+while size:=len(q):
     if size%1000==0:
         print('qsize',size,'max_step',max_step,flush=True)
-    s=q.get_nowait()
+    s=q.popleft()
     #print(s)
     if s==target_state:
         print('Part 1:',s)
         break
     for ns in s.new_states():
         max_step=ns.steps
-        q.put(ns)
+        q.append(ns)
 # Part 1: 37
 # Part 2: 61
+
+print_previous_states(s)
