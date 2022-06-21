@@ -1,71 +1,50 @@
-from copy import deepcopy
-from queue import Queue
-DXDY=((0,1),(0,-1),(1,0),(-1,0))
-class State:
-    def __init__(self,grid,step=0):
-        self.grid=deepcopy(grid)
-        self.tx,self.ty=len(grid[0])-1,0
-        self.step=step
-        self.prev=None
-    def gen_next_states(self):
-        if self.grid[self.ty][self.tx][1]>self.grid[0][0][0]:
-            print(self.grid[self.ty][self.tx][1],'is too big')
-            return
-        for y,line in enumerate(grid):
-            for x,(siz,use,ava) in enumerate(line):
-                assert use+ava==siz
-                for dx,dy in DXDY:
-                    if 0<=x+dx<len(self.grid[0]) and 0<=y+dy<len(self.grid) and \
-                       use<=self.grid[y+dy][x+dx][2]: # Used <= available
-                        new=deepcopy(self)
-                        new.prev=self
-                        new.step+=1
-                        asiz,ause,aava = new.grid[y][x]
-                        bsiz,buse,bava = new.grid[y+dy][x+dx]
-                        if buse+ause>bsiz: continue
-                        new.grid[y][x] = (asiz,0,asiz)
-                        new.grid[y+dy][x+dx] = (bsiz, buse+ause, bava-ause)
-                        if (x,y)==(self.tx,self.ty):
-                            new.tx+=dx
-                            new.ty+=dy
-                        yield new
-    def __eq__(self, other):
-        return type(self) is type(other) and self.grid==other.grid
-    def __lt__(self, other):
-        return self.tx+self.ty<other.tx+other.ty
-    def __repr__(self):
-        t=self.tx,self.ty
-        op=' ('
-        cp=' )'
-        return f"Step: {self.step}\n"+\
-                "\n".join("|".join(f"{op[int((x,y)==t)]}{node[1]:3d}/{node[0]:<3d}{cp[int((x,y)==t)]}"
-                for x,node in enumerate(line))
-                for y,line in enumerate(self.grid)).replace('  0','_ 0')
-    def past_states(self):
-        if self.prev is None:
-            return repr(self)
-        return self.prev.past_states()+'\n\n'+repr(self)
+"""Please note that this is NOT A GENERAL SOLUTION
+You might need to change a few things for part 2,
+depending on where the "wall" ends up.
+"""
+
+BLOCKS = "▁▂▃▄▅▆▇█"
+BIG = 100
+
+def complex_range(n):
+    for real in range(int(n.real)):
+        for imag in range(int(n.imag)):
+            yield real+imag*j
+
+def display_complex_grid(grid_dict, display=str):
+    last = max(grid_dict, key=abs)
+    for row in range(int(last.imag)+1):
+        for col in range(int(last.real)+1):
+            print(end=display(grid_dict[row*1j+col]))
+        print()
+
+def us_to_block(us):
+    use, siz = us
+    return BLOCKS[int(use/siz*len(BLOCKS))]
+def block(us):
+    use, siz = us
+    if siz>BIG: return BLOCKS[-1]
+    if use==0: return '_'
+    return '#'
+def frac(us):
+    use, siz = us
+    #if use>200: return BLOCKS[-1]*8
+    if use==0: return f" __/{siz:<3d}"
+    return f"{use:>3d}/{siz:<3d}"
 
 with open('22.txt') as file:
     data=file.read().splitlines()
 
-#data="""a
-#Filesystem            Size  Used  Avail  Use%
-#/dev/grid/node-x0-y0   10T    8T     2T   80%
-#/dev/grid/node-x0-y1   11T    6T     5T   54%
-#/dev/grid/node-x0-y2   32T   28T     4T   87%
-#/dev/grid/node-x1-y0    9T    7T     2T   77%
-#/dev/grid/node-x1-y1    8T    0T     8T    0%
-#/dev/grid/node-x1-y2   11T    7T     4T   63%
-#/dev/grid/node-x2-y0   10T    6T     4T   60%
-#/dev/grid/node-x2-y1    9T    8T     1T   88%
-#/dev/grid/node-x2-y2    9T    6T     3T   66%
-#""".splitlines()
-
 cmd,headers,*lines=data
 
-grid=[]
-fs={}
+grid={}
+
+uses=[]
+avas=[]
+sizs=[]
+
+walls=set()
+
 for line in lines:
     file,size,used,avail,use_pc=line.split()
     _,xs,ys=file.split('-')
@@ -74,28 +53,78 @@ for line in lines:
     siz=int(size[:-1])
     use=int(used[:-1])
     ava=int(avail[:-1])
-    fs[x,y]=(siz,use,ava)
+    assert use+ava==siz
+    pos=x+y*1j
+    grid[pos]=(use,siz)
+    if use==0: hole=pos
+    if siz>BIG:walls.add(pos)
+    uses.append(use)
+    avas.append(ava)
+    sizs.append(siz)
 
-target=max(fs)
-mx,my=target
-for y in range(my+1):
-    grid.append([])
-    for x in range(mx+1):
-        grid[-1].append(fs[x,y])
+# Part 1
+count = 0
+for posa, (usa,sia) in grid.items():
+    for posb, (usb,sib) in grid.items():
+        if posa!=posb:
+            count+=usa>0 and (usa+usb)<sib
+print('Part 1:',count)
+# Interestingly, every viable pair is with the hole
 
-q=Queue()
-q.put(State(grid))
-while q.qsize():
-    state=q.get()
-    if state.tx==0==state.ty:
-        print('Part 2:',state.step)
-        break
-    for new in state.gen_next_states():
-        if new.tx==0==new.ty:
-            print(new.past_states())
-            print('Part 2:',new.step)
-            q=Queue()
-            break
-        q.put(new)
-        if q.qsize()%1000==0:
-            print(q.qsize(), state.step, flush=True)
+# Part 2
+smallest_nonzero = sorted(uses)[1]
+largest_nonempty_space = sorted(avas)[-2]
+# assert that everything will fit in the hole
+assert largest_nonempty_space<smallest_nonzero
+
+#display_complex_grid(grid,us_to_block)
+#display_complex_grid(grid,frac)
+display_complex_grid(grid,block)
+print('Hole:',hole)
+#print('Walls:',walls)
+
+goal=max(grid, key=lambda _:(_.real, -_.imag))
+print('Goal:',goal)
+left_wall = min(walls, key=abs)
+steps_left = (hole-left_wall+1).real
+steps_up = hole.imag
+steps_right = goal.real-left_wall.real # Aiming just left of goal
+goal_steps = goal.real # Goal needs to move left this many times
+hole_steps_for_goal = 5*goal_steps-4 # 1 for the goal, 4 for the hole (except first step)
+
+"""hole steps:           vvv same as first
+#_G  #G_  #G#  #G#  #G#  _G#
+###  ###  ##_  #_#  _##  ###
+"""
+
+
+total = steps_left+steps_up+steps_right+hole_steps_for_goal
+print('Part 2:', round(total))
+
+###################################G
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+####################################
+#███████████████████████████████████
+#################_##################
+####################################
+####################################
+
+# 248 too high - forgot to sub 4
