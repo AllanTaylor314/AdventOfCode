@@ -4,37 +4,6 @@ A=[  1,  1,  1,  1,  1,  26,  1, 26, 26,  1, 26, 26, 26, 26]
 B=[ 15, 10, 12, 10, 14, -11, 10,-16, -9, 11, -8, -8,-10, -9]
 C=[ 13, 16,  2,  8, 11,   6, 12,  2,  2, 15,  1, 10, 14, 10]
 
-CONSTS = list(zip(A,B,C))
-
-def process(c_index,w,x=0,y=0,z=0):
-    a,b,c = CONSTS[c_index]
-    x*=0
-    x+=z
-    x%=26
-    z//=a
-    x+=b
-    x=int(x==w)
-    x=int(x==0)
-    y*=0
-    y+=25
-    y*=x
-    y+=1
-    z*=y
-    y*=0
-    y+=w
-    y+=c
-    y*=x
-    z+=y
-    return z
-
-def process_1(c_index,w,z=0):
-    a,b,c = CONSTS[c_index]
-    x=int(z%26+b!=w)
-    z=z//a*(25*x+1)
-    y=(w+c)*x
-    z+=y
-    return z
-
 # Pairs of indices that must cancel out
 opp_pairs = []
 stack = []
@@ -44,11 +13,11 @@ for i,a in enumerate(A):
 
 pairs = []
 for a,b in opp_pairs:
+    delta = C[a]+B[b] # Modulo stuff boils down to wo=wi+ci+bo
     for wa in range(9,0,-1):
-        p1a = process_1(a,wa,0)
-        for wb in range(9,0,-1):
-            if process_1(b,wb,p1a)==0:
-                pairs.append((a,wa,b,wb))
+        wb = wa + delta
+        if wb in range(1,10):
+            pairs.append((a,wa,b,wb))
 
 def generate_possible_numbers(num_tupl=(0,)*14):
     for pair in pairs:
