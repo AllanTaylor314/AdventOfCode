@@ -35,26 +35,19 @@ def process_1(c_index,w,z=0):
     z+=y
     return z
 
-for z in range(1000):
-    for w in range(1,10):
-        for c_ind in range(len(CONSTS)):
-            assert process(c_ind,w,z=z)==process_1(c_ind,w,z=z),(c_ind,w,z)
+# Pairs of indices that must cancel out
+opp_pairs = []
+stack = []
+for i,a in enumerate(A):
+    if a==1: stack.append(i)
+    else: opp_pairs.append((stack.pop(),i))
 
-# Pairs that must cancel out - could probably work it out programatically
-opp_pairs = [
-    (0,13),
-    (1,12),
-    (2,11),
-    (3,8),
-    (4,5),
-    (6,7),
-    (9,10)
-]
 pairs = []
 for a,b in opp_pairs:
     for wa in range(9,0,-1):
+        p1a = process_1(a,wa,0)
         for wb in range(9,0,-1):
-            if process_1(b,wb,process_1(a,wa,0))==0:
+            if process_1(b,wb,p1a)==0:
                 pairs.append((a,wa,b,wb))
 
 def generate_possible_numbers(num_tupl=(0,)*14):
