@@ -8,7 +8,7 @@ Guidelines:
  - don't hardcode the session key!
  - include my contact details in the useragent header
 """
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import sys
 import os
@@ -21,7 +21,7 @@ EARLY_ERROR = b"Please don't repeatedly request this endpoint before it unlocks!
 SESSION = os.environ["SESSION"]
 BASE_PATH = Path(os.path.dirname(os.path.realpath(__file__))) # Let this be run from anywhere and act in the right place
 
-now = datetime.now(tz=pytz.timezone('US/Eastern'))
+now = datetime.now(tz=pytz.timezone('US/Eastern')) + timedelta(minutes=5)
 # now = datetime(2015,12,5)
 print(f"Advent of Code {now.year}")
 
