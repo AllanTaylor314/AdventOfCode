@@ -7,8 +7,7 @@ for row in raw_stacks.splitlines()[-2::-1]:
     for i,c in enumerate(row[1::4],start=1):
         if c!=" ": stacks[i].append(c)
 for line in lines:
-    _,n,_,s,_,d = line.split()
-    instructions.append(tuple(map(int,(n,s,d))))
+    instructions.append(tuple(map(int,line.split()[1::2])))
 stacks2 = [s.copy() for s in stacks]
 
 for n,s,d in instructions:
