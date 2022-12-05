@@ -1,4 +1,4 @@
-from queue import Queue
+from collections import deque
 
 class RecMazeSpace:
     _exisiting={}
@@ -76,16 +76,16 @@ for pair in portal_endpoints.values():
         portals[b]=a+(ad,)
 
 print('Begin the search',flush=True)
-explore_queue = Queue()
-explore_queue.put((portal_endpoints['AA'][0]+(0,),None))
+explore_queue = deque([(portal_endpoints['AA'][0]+(0,),None)])
 final = portal_endpoints['ZZ'][0]+(0,)
 i=0
-while not explore_queue.empty():
+while explore_queue:
     i+=1
     if i%100000==0:print('...',i,flush=True)
-    xyz,source = explore_queue.get_nowait()
+    xyz,source = explore_queue.popleft()
+    if xyz in RecMazeSpace._exisiting: continue # This line saves about 25200000 checks!
     for next_xyz in RecMazeSpace(xyz,source).next_locations:
-        explore_queue.put((next_xyz,xyz))
+        explore_queue.append((next_xyz,xyz))
     if xyz==final:break
 
 print('Begin the backtrack',flush=True)
