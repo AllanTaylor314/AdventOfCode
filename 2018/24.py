@@ -1,4 +1,23 @@
-from day24_input import *
+import re
+
+nums_regex = re.compile(r"\d+")
+type_regex = re.compile(r"\s(\w+)\sdamage")
+buff_regex = re.compile(r"\((.+)\)")
+def parse_line(line):
+    units,hp,dmg,init = map(int,nums_regex.findall(line))
+    dtype = type_regex.search(line)[1]
+    buffs = {}
+    buff_result = buff_regex.search(line)
+    if buff_result is not None:
+        for buff_group in buff_result.group(1).split("; "):
+            buff_type,buff_list = buff_group.split(" to ")
+            buffs[buff_type] = tuple(buff_list.split(", "))
+    return units,hp,buffs,dmg,dtype,init
+
+with open("24.txt") as file:
+    raw_immune_system,raw_infection = file.read().split("\n\n")
+immune_system = [parse_line(line) for line in raw_immune_system.splitlines()[1:]]
+infection = [parse_line(line) for line in raw_infection.splitlines()[1:]]
 
 DEBUG = False
 ## TESTING ##
@@ -85,7 +104,6 @@ print('Part 1:',infection_score,flush=True)
 boost = 1
 while infection_score:
     immune_score,infection_score = battle(boost)
-    print(boost,immune_score,infection_score,flush=True)
     boost+=1
 print('Part 2:',immune_score)
 # Part 1: 19974
