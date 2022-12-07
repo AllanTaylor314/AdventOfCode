@@ -1,5 +1,7 @@
 from pprint import pprint
 
+DEBUG = False
+
 TOTAL_AVAILABLE = 70000000
 MIN_UNUSED = 30000000
 TOTAL_USED = 0
@@ -11,7 +13,7 @@ def dir_size(dirs):
     if isinstance(dirs,dict):
         size = sum(dir_size(d) for n,d in dirs.items() if n!='..')
         if size<=100_000:
-            print(f"Adding {size} to p1")
+            if DEBUG: print(f"Adding {size} to p1")
             p1+=size
         if TOTAL_USED and (TOTAL_AVAILABLE-TOTAL_USED)+size>=MIN_UNUSED:
             p2 = min(p2,size)
@@ -22,37 +24,15 @@ def print_dirs(dirs,depth=0):
     for name,value in dirs.items():
         if isinstance(value,dict):
             if name!='..':
-                print("    "*depth+name)
+                print("  "*depth+f"- {name} (dir)")
                 print_dirs(value,depth+1)
         else:
-            print("    "*depth+f"{name} ({value})")
+            print("  "*depth+f"- {name} ({value})")
 
 
 with open("07.txt") as file:
     lines = file.read().splitlines()
-test_lines = """$ cd /
-$ ls
-dir a
-14848514 b.txt
-8504156 c.dat
-dir d
-$ cd a
-$ ls
-dir e
-29116 f
-2557 g
-62596 h.lst
-$ cd e
-$ ls
-584 i
-$ cd ..
-$ cd ..
-$ cd d
-$ ls
-4060174 j
-8033020 d.log
-5626152 d.ext
-7214296 k""".splitlines()
+
 root = {"/":{}}
 curr = root
 for line in lines:
@@ -61,7 +41,7 @@ for line in lines:
         if units[1]=='cd':
             if '..' not in curr[units[2]]:
                 curr[units[2]]['..']=curr # set parent
-                print(f"Moved in to {units[2]}")
+                if DEBUG: print(f"Moved in to {units[2]}")
             curr=curr[units[2]]
     else:
         dir_or_size,name = units
@@ -70,9 +50,9 @@ for line in lines:
         else:
             curr[name]=int(dir_or_size)
 print_dirs(root)
-pprint(root)
+if DEBUG: pprint(root)
 TOTAL_USED = dir_size(root['/'])
 print(TOTAL_USED,"used")
-print("Part 1:",p1) # Not 2712611
-dir_size(root['/'])
+print("Part 1:",p1)
+dir_size(root['/']) # Rerun to set p2, now that TOTAL_USED it known
 print("Part 2:",p2)
