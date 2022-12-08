@@ -1,34 +1,6 @@
-# def count(line):
-#     c=0
-#     m=0 # max so far
-#     for h in map(int,line): # counting trees twice!!!!
-#         if h>m:
-#             c+=1
-#             m=h
-#     return c
-
-# def count(line): # Still counting outer things twice!!!!!!!
-#     c=set()
-#     m=-1 # max so far
-#     for i,h in enumerate(map(int,line)):
-#         if h>m:
-#             c.add(i)
-#             m=h
-#     m=-1 # max so far
-#     for i,h in reversed(list(enumerate(map(int,line)))):
-#         if h>m:
-#             c.add(i)
-#             m=h
-#     return len(c)
-
 with open("08.txt") as file:
     lines = file.read().splitlines()
-# lines = """30373
-# 25512
-# 65332
-# 33549
-# 35390
-# """.splitlines()
+
 grid = {x+y*1j:int(h) for y,row in enumerate(lines) for x,h in enumerate(row)}
 
 visible = set()
@@ -55,12 +27,7 @@ for y in range(len(lines)):
             visible.add(x+y*1j)
             max_for_col = grid[x+y*1j]
 
-# for row in lines:
-#     p1+=count(row)
-# for col in zip(*lines):
-#     p1+=count(col)
-p1=len(visible)
-print("Part 1:",p1)
+print("Part 1:",len(visible))
 def scenic_score(x,y):
     count_right = count_left = count_up = count_down = 0
     for i in range(x+1,len(lines[0])): # right
@@ -88,6 +55,5 @@ def scenic_score(x,y):
             count_up += 1
             break
     return count_right * count_left * count_up * count_down
-p2 = max(scenic_score(x,y) for x in range(len(lines[0])) for y in range(len(lines)))
 
-print("Part 2:",p2)
+print("Part 2:",max(scenic_score(x,y) for x in range(len(lines[0])) for y in range(len(lines))))
