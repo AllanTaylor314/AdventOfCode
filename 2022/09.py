@@ -23,5 +23,14 @@ for num,dire in deltas:
 
 print("Part 1:",len(tails))
 p2 = 0
-
-print("Part 2:",p2)
+tails2 = {0}
+rope = [0+0j]*10
+for num,dire in deltas:
+    for _ in range(num):
+        rope[0]+=dire
+        for ti in range(1,len(rope)):
+            hi = ti-1 # head index, tail index
+            while abs(rope[ti]-rope[hi])>=2: # Up to sqrt2
+                rope[ti]+=difference_to_direction(rope[hi]-rope[ti])
+        tails2.add(rope[ti]) # last only
+print("Part 2:",len(tails2))
