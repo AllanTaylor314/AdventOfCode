@@ -15,7 +15,7 @@ def solve(length):
             rope[0]+=dire
             for ti in range(1,len(rope)):
                 hi=ti-1 # head index, tail index
-                while abs(rope[hi]-rope[ti])>=2: # Up to sqrt2
+                if abs(rope[hi]-rope[ti])>=2: # Up to sqrt2
                     rope[ti]+=difference_to_direction(rope[hi]-rope[ti])
             tails.add(rope[ti]) # last only
     return len(tails)
