@@ -31,8 +31,16 @@ while q:
         if w not in dists:
             dists[w]=d+1
             q.append((w,d+1))
-    # print(q)
-print("Part 1:",dists[end]) # not 445
-p2 = 0
-
+print("Part 1:",dists[end])
+p2 = 9**9 # inf
+for start in (z for z,c in grid.items() if c=='a'):
+    q = deque([(start,0)])
+    dists = {start:0}
+    while q:
+        z,d = q.popleft()
+        for w in valid_steps(z):
+            if w not in dists:
+                dists[w]=d+1
+                q.append((w,d+1))
+    if end in dists and dists[end]<p2:p2=dists[end]
 print("Part 2:",p2)
