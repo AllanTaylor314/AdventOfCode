@@ -70,3 +70,25 @@ for (sx,sy),dist in sorted(sensor_distances.items(),key=lambda _:-_[1]):
     print(R"\operatorname{abs}\left(x-"+str(sx)+R"\right)+\operatorname{abs}\left(y-"+str(sy)+R"\right)\le"+str(dist)+r"-a")
 
 # Paste that into desmos (https://www.desmos.com/calculator/rq42ebsqns), slide a=1000000 down to a=0 to pinpoint the empty square
+
+# Attempt 2 at part 2
+from collections import Counter
+def perimeter(sensor,radius):
+    """Generates blocks *just outside* the given range"""
+    sx,sy = sensor
+    for dy in range(max(-radius-1,-sy),min(radius+2,4_000_001-sy)):
+        dx = radius+1-abs(dy)
+        if sx+dx<=4_000_000:yield sx+dx,sy+dy
+        if dx and sx-dx>=0: yield sx-dx,sy+dy
+
+perimeter_counts = Counter(_ for s,d in sensor_distances.items() for _ in perimeter(s,d))
+candidates = [s for s,c in perimeter_counts.items() if c>=4]
+print(*candidates)
+for b in candidates:
+    bx,by = b
+    if not (0<=bx<=4e6 and 0<=by<=4e6):continue
+    for s,d in sensor_distances.items():
+        if manhattan(s,b)<=d:
+            break
+    else:
+        print("Part 2:",bx*4000000+by)
