@@ -29,15 +29,15 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3""".splitlines()
 SENSORS = {}
 BEACONS = set()
 nums = [tuple(map(int,re.findall(r"([\-\d]+)",line))) for line in lines]
-
+sensor_distances = {}
 ranges = []
 for sx,sy,bx,by in nums:
     SENSORS[(sx,sy)] = (bx,by)
     BEACONS.add((bx,by))
     taxicab = manhattan((sx,sy),(bx,by))
-    print(taxicab)
+    sensor_distances[sx,sy]=taxicab
     ranges.append(range(sx-(taxicab-abs(sy-Y1)),sx+(taxicab-abs(sy-Y1)+1)))
-p1 = 0
+
 def print_grid():
     num_empty = 0
     num_y1 = 0
@@ -48,7 +48,6 @@ def print_grid():
             elif (x,y) in BEACONS:
                 print(end="B")
             elif any(manhattan((x,y),s)<=manhattan(b,s) for s,b in SENSORS.items()):
-            # elif any(manhattan((x,y),s)<=manhattan(b,s) for s,b in (((8,7),(2,10)),)):
                 print(end="#")
                 num_empty+=1
                 if y==Y1:
@@ -61,8 +60,13 @@ def print_grid():
 rset = set()
 for r in ranges: rset.update(r)
 rset-={x for x,y in BEACONS if y==Y1}
-for x in range(-4,27): print(end=".#"[x in rset])
 print("Part 1:",len(rset)) # not 4858853, 4858851, 4919282; is 4919281
-p2 = 0
 
-print("Part 2:",p2)
+# 0<=x,y<=4_000_000
+ex,ey = 3157535,3363767
+print("Part 2:",ex*4000000+ey) # 41646000000 too low
+for (sx,sy),dist in sorted(sensor_distances.items(),key=lambda _:-_[1]):
+    # print(f"{sx:10,d}, {sy:10,d}:{dist:10,d}")
+    print(R"\operatorname{abs}\left(x-"+str(sx)+R"\right)+\operatorname{abs}\left(y-"+str(sy)+R"\right)\le"+str(dist)+r"-a")
+
+# Paste that into desmos (https://www.desmos.com/calculator/rq42ebsqns), slide a=1000000 down to a=0 to pinpoint the empty square
