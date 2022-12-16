@@ -1,17 +1,7 @@
 import re
-from collections import deque
+from functools import cache
 with open("16.txt") as file:
     lines = file.read().splitlines()
-test_lines="""Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
-Valve BB has flow rate=13; tunnels lead to valves CC, AA
-Valve CC has flow rate=2; tunnels lead to valves DD, BB
-Valve DD has flow rate=20; tunnels lead to valves CC, AA, EE
-Valve EE has flow rate=3; tunnels lead to valves FF, DD
-Valve FF has flow rate=0; tunnels lead to valves EE, GG
-Valve GG has flow rate=0; tunnels lead to valves FF, HH
-Valve HH has flow rate=22; tunnel leads to valve GG
-Valve II has flow rate=0; tunnels lead to valves AA, JJ
-Valve JJ has flow rate=21; tunnel leads to valve II""".splitlines()
 valve_rates = {}
 valve_map = {}
 for line in lines:
@@ -19,66 +9,45 @@ for line in lines:
     valve_rates[valve]=int(flow)
     valve_map[valve]=valves.split(", ")
 
-# mins remaining, total relief, {open valves}, current valve
-# q = deque([(30,0,set(),None,"AA")])
-# max_relief = 0
-# count = 0
-# while q:
-#     count+=1
-#     if count%100000==0:
-#         print(count, len(q), mins, max_relief)
-#     mins, relief, open_valves, previous_valve, current_valve = q.pop()
-#     if relief>max_relief:max_relief=relief
-#     if mins<=0: continue
-#     if current_valve not in open_valves and valve_rates[current_valve]:
-#         q.append((
-#             mins-1,
-#             relief+(mins-1)*valve_rates[current_valve],
-#             open_valves|{current_valve},
-#             current_valve,
-#             current_valve
-#             ))
-#     for next_valve in valve_map[current_valve]:
-#         if next_valve==previous_valve:continue # No oscillating! (This saved so much time)
-#         q.append((
-#             mins-1,
-#             relief,
-#             open_valves,
-#             current_valve,
-#             next_valve
-#         ))
-
-# print("Part 1:",max_relief) # 1595 (didn't even wait for it to finish)
-
-q = deque([(26,0,set(),None,"AA",None,"AA")])
-max_relief = 0
-count = 0
+edge_weights = {}
+q = {('AA',None,'AA',0),*((v,None,v,0) for v,r in valve_rates.items() if r)} # Last hub, prev node, current node, num steps since
 while q:
-    count+=1
-    if count%100000==0:
-        print(count, len(q), mins, max_relief)
-    mins, relief, open_valves, previous_valve, current_valve, prev_elephant, curr_elephant = q.pop()
-    if relief>max_relief:max_relief=relief
-    if mins<=0: continue
-    my_moves = [(next_valve) for next_valve in valve_map[current_valve] if next_valve!=previous_valve]+[(current_valve)]*bool(current_valve not in open_valves and valve_rates[current_valve])
-    elephant = [(next_valve) for next_valve in valve_map[curr_elephant] if next_valve!=prev_elephant]+[(curr_elephant)]*bool(curr_elephant not in open_valves and valve_rates[curr_elephant] and current_valve!=curr_elephant)
-    for my_next in my_moves:
-        for elenext in elephant:
-            new_opens = open_valves.copy()
-            new_relief = relief
-            if my_next==current_valve:
-                new_relief+=(mins-1)*valve_rates[current_valve]
-                new_opens.add(current_valve)
-            if elenext==curr_elephant:
-                new_relief+=(mins-1)*valve_rates[curr_elephant]
-                new_opens.add(curr_elephant)
-            q.append((
-                mins-1,
-                new_relief,
-                new_opens,
-                current_valve,
-                my_next,
-                curr_elephant,
-                elenext
-            ))
-print("Part 2:",max_relief) # Not 1465, 1545
+    hub,prev,node,steps = q.pop()
+    if steps>len(valve_map):
+        print("Chances are there is a loop in the tunnels")
+        continue
+    if hub!=node and (valve_rates[node] or node=="AA"): # This is another hub
+        t = tuple(sorted((hub,node)))
+        if edge_weights.get(t,9e9)>steps:
+            edge_weights[t] = steps
+        continue
+    for n in valve_map[node]:
+        if n==prev: continue
+        q.add((
+            hub,
+            node,
+            n,
+            steps+1
+        ))
+    if len(q)>10000:
+        print("q exceeded length. Stopping")
+        break
+nested_weights = {v:{} for v,f in valve_rates.items() if f}
+nested_weights['AA'] = {}
+for (a,b),w in edge_weights.items():nested_weights[a][b]=nested_weights[b][a]=w
+
+@cache
+def solver(minutes:int, open_valves:frozenset, current:str, part:int):
+    if part<=0:return 0
+    if minutes<=0:
+        if part==1:return 0
+        if part==2:return solver(26,open_valves,"AA",1)
+    best = 0
+    for next_valve, weight in nested_weights[current].items():
+        best = max(best,solver(minutes-weight,open_valves,next_valve,part))
+    if current not in open_valves:
+        best = max(best,(minutes-1)*valve_rates[current]+solver(minutes-1,open_valves|{current},current,part))
+    return best
+
+print("Part 1:",solver(30,frozenset(),"AA",1))
+print("Part 2:",solver(26,frozenset(),"AA",2))
