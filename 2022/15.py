@@ -80,15 +80,46 @@ def perimeter(sensor,radius):
         dx = radius+1-abs(dy)
         if sx+dx<=4_000_000:yield sx+dx,sy+dy
         if dx and sx-dx>=0: yield sx-dx,sy+dy
+    print(f"Generated all postions for {sensor} (size={radius})")
 
-perimeter_counts = Counter(_ for s,d in sensor_distances.items() for _ in perimeter(s,d))
-candidates = [s for s,c in perimeter_counts.items() if c>=4]
-print(*candidates)
-for b in candidates:
+# perimeter_counts = Counter(_ for s,d in sensor_distances.items() for _ in perimeter(s,d))
+# candidates = [s for s,c in perimeter_counts.items() if c>=4]
+# print(*candidates)
+# for b in candidates:
+#     bx,by = b
+#     if not (0<=bx<=4e6 and 0<=by<=4e6):continue
+#     for s,d in sensor_distances.items():
+#         if manhattan(s,b)<=d:
+#             break
+#     else:
+#         print("Part 2:",bx*4000000+by)
+
+for b in (_ for s,d in sensor_distances.items() for _ in perimeter(s,d)):
     bx,by = b
-    if not (0<=bx<=4e6 and 0<=by<=4e6):continue
     for s,d in sensor_distances.items():
         if manhattan(s,b)<=d:
             break
     else:
         print("Part 2:",bx*4000000+by)
+        break; # Guaranteed to be only one
+
+# Part 2, attempt 3
+# def perimeter_lines(sensor,radius):
+#     sx,sy = sensor
+#     return [
+#         ((sx,sy+radius+1),(sx+radius+1,sy)),
+#         ((sx+radius+1,sy),(sx,sy-radius-1)),
+#         ((sx,sy-radius-1),(sx-radius-1,sy)),
+#         ((sx-radius-1,sy),(sx,sy+radius+1))
+#     ]
+# def intersect_lines(a,b):
+#     (ax,ay),(au,av) = a
+#     (bx,by),(bu,bv) = b
+#     signax = (ax<au)-(ax>au)
+#     signay = (ay<av)-(ay>av)
+#     signbx = (bx<bu)-(bx>bu)
+#     signby = (by<bv)-(by>bv)
+#     slopea = 1 if signax==signay else -1
+#     slopeb = 1 if signbx==signby else -1
+#     if slopea==slopeb: return None
+#     # Nah...
