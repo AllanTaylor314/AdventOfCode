@@ -16,8 +16,8 @@ gas_cycle = cycle(map(DELTA.get,line))
 rock_cycle = cycle(ROCKS)
 floor = 0
 filled = {i-1j for i in range(7)}
-for i,rock in zip(range(2022),rock_cycle):
-    print(end=f"Dropping {i}...")
+i2height = {}
+for i,rock in zip(range(1,10_001),rock_cycle):
     rock = tuple(r+floor*1j for r in rock) # Offset 3 above current max
     while True:
         # Push
@@ -25,22 +25,26 @@ for i,rock in zip(range(2022),rock_cycle):
         new_rock = tuple(r+gas for r in rock)
         if all(0<=z.real<7 for z in new_rock) and not filled&set(new_rock):
             rock = new_rock
-        #     print("Gas moved rock",rock,new_rock)
-        # else:
-        #     print("Didn't move",rock,new_rock)
-        # Drop
         new_rock = tuple(r-1j for r in rock)
         if filled&set(new_rock):
             filled.update(rock)
             floor = max(floor, *(int(z.imag)+1 for z in rock))
-            # print("Didn't fall",rock,new_rock)
             break
         else:
-            # print("Fell one",rock,new_rock)
             rock = new_rock
-    print(f"Done: {floor=}")
+    i2height[i]=floor
 
-print("Part 1:",floor)
-p2 = 0
+## For the CTRL+F trickery
+# with open("17-map.txt","w",newline="\n") as f:
+#     for y in range(floor,-1,-1):
+#         for x in range(7):
+#             f.write(".#"[x+y*1j in filled])
+#         f.write("\n")
 
-print("Part 2:",p2)
+print("Part 1:",i2height[2022])
+
+# 5 (n-rocks) is prime, 10091 (gas cycle length) is also prime
+LOOP_HEIGHT = 2778 # Difference between floors (Using CTRL+F on the output)
+LOOP_LENGTH = 1745 # Number of rocks (Seeing which loops had those heights)
+iterations,offset = divmod(1000000000000,LOOP_LENGTH)
+print("Part 2:",i2height[offset]+LOOP_HEIGHT*iterations)
