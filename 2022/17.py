@@ -1,4 +1,5 @@
 from itertools import cycle
+from collections import Counter, defaultdict
 DELTA = {
     ">":1,
     "<":-1,
@@ -44,7 +45,27 @@ for i,rock in zip(range(1,10_001),rock_cycle):
 print("Part 1:",i2height[2022])
 
 # 5 (n-rocks) is prime, 10091 (gas cycle length) is also prime
-LOOP_HEIGHT = 2778 # Difference between floors (Using CTRL+F on the output)
-LOOP_LENGTH = 1745 # Number of rocks (Seeing which loops had those heights)
+NUM_ROWS = 10 # Number of rows to try to match: Larger is more accurate, Smaller is faster
+zs = [x+y*1j for x in range(7) for y in range(floor-NUM_ROWS-1,floor)]
+bools = [z in filled for z in zs]
+offset = 0
+while True:
+    offset+=1
+    if all(((z-offset*1j) in filled)==b for z,b in zip(zs,bools)):
+        LOOP_HEIGHT = offset
+        break
+# Surely there is a better way to do this, but it seems to work ok
+height2i = defaultdict(list)
+loop_sizes = Counter()
+prevheight = 0
+for i,height in i2height.items():
+    height%=LOOP_HEIGHT
+    if height!=prevheight:
+        if height2i[height]:
+            loop_sizes[i-height2i[height][-1]]+=1
+        height2i[height].append(i)
+    prevheight = height
+LOOP_LENGTH = max(loop_sizes,key=loop_sizes.get)
+
 iterations,offset = divmod(1000000000000,LOOP_LENGTH)
 print("Part 2:",i2height[offset]+LOOP_HEIGHT*iterations)
