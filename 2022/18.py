@@ -22,9 +22,15 @@ for cube in cubes:
 print("Part 1:",p1)
 p2 = p1
 xs,ys,zs = zip(*cubes)
-all_cubes = {(x,y,z) for x in range(min(xs)-1,max(xs)+2) for y in range(min(ys)-1,max(ys)+2) for z in range(min(zs)-1,max(zs)+2)}
+minx=min(xs)
+maxx=max(xs)
+miny=min(ys)
+maxy=max(ys)
+minz=min(zs)
+maxz=max(zs)
+all_cubes = {(x,y,z) for x in range(minx-1,maxx+2) for y in range(miny-1,maxy+2) for z in range(minz-1,maxz+2)}
 empty_cubes = all_cubes-scanned_cubes
-q = [(min(xs)-1,min(ys)-1,min(zs)-1)]
+q = [(minx-1,miny-1,minz-1)]
 while q:
     c = q.pop()
     if c in empty_cubes:
