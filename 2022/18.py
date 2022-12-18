@@ -21,9 +21,10 @@ for cube in cubes:
     scanned_cubes.add(cube)
 print("Part 1:",p1)
 p2 = p1
-all_cubes = {(x,y,z) for x in range(20) for y in range(20) for z in range(20)}
+xs,ys,zs = zip(*cubes)
+all_cubes = {(x,y,z) for x in range(min(xs)-1,max(xs)+2) for y in range(min(ys)-1,max(ys)+2) for z in range(min(zs)-1,max(zs)+2)}
 empty_cubes = all_cubes-scanned_cubes
-q = [(0,0,0)]
+q = [(min(xs)-1,min(ys)-1,min(zs)-1)]
 while q:
     c = q.pop()
     if c in empty_cubes:
