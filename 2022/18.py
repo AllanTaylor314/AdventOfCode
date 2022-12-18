@@ -37,9 +37,7 @@ while q:
         empty_cubes.remove(c)
         q.extend(adj_cubes(c))
 for cube in empty_cubes:
-    p2 += 6
     for adj in adj_cubes(cube):
         if adj in scanned_cubes:
-            p2 -= 2
-    scanned_cubes.add(cube)
+            p2 -= 1
 print("Part 2:",p2)
