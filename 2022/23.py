@@ -1,15 +1,5 @@
 from collections import defaultdict
 
-def print_map(positions):
-    minx=min(int(z.real) for z in positions)
-    maxx=max(int(z.real) for z in positions)
-    miny=min(int(z.imag) for z in positions)
-    maxy=max(int(z.imag) for z in positions)
-    for y in range(miny,maxy+1):
-        for x in range(minx,maxx+1):
-            print(end="#" if complex(x,y) in positions else ".")
-        print()
-
 with open("23.txt") as file:
     lines = file.read().splitlines()
 init_positions = set(complex(x,y) for y,row in enumerate(lines) for x,c in enumerate(row) if c=="#")
@@ -47,8 +37,6 @@ while num_moved:
     num_moved = len(old_positions-positions)
     assert len(positions)==len(init_positions) # Did we lose any elves?
     r+=1
-    print(f"End of round {r}: Moved {num_moved} elves")
-    # print_map(positions)
     proposals.append(proposals.pop(0))
 
 print("Part 2:",r)
