@@ -29,6 +29,7 @@ def move_blizzards():
             new_list.append(complex(x,y))
         blizzards[direction]=new_list
 del blizzards["."]
+blizzards["#"].extend((start-1j,final+1j))
 def print_blizzards():
     for y in range(maxy+2):
         for x in range(maxx+2):
@@ -39,22 +40,21 @@ def print_blizzards():
             print(end=bzs[0] if len(bzs)==1 else str(len(bzs) or "."))
         print()
 time = 0
-current_positions = {start}
-while final not in current_positions:
-    time+=1
-    move_blizzards()
-    full_places = {p for l in blizzards.values() for p in l}|{start-1j,final+1j}
-    next_positions = set()
-    for curr in current_positions:
-        for delta in DELTAS:
-            new = curr+delta
-            if new not in full_places:
-                next_positions.add(new)
-    current_positions = next_positions
-    print(time,len(current_positions))
-    # print_blizzards()
-
-print("Part 1:",time) # Not 178
-p2 = 0
-
-print("Part 2:",p2)
+for repeat in range(3):
+    current_positions = {start}
+    while final not in current_positions:
+        time+=1
+        move_blizzards()
+        full_places = {p for l in blizzards.values() for p in l}
+        next_positions = set()
+        for curr in current_positions:
+            for delta in DELTAS:
+                new = curr+delta
+                if new not in full_places:
+                    next_positions.add(new)
+        current_positions = next_positions
+        print(time,len(current_positions))
+        # print_blizzards()
+    if repeat==0:print("Part 1:",time)
+    start,final=final,start
+print("Part 2:",time) # Not 830
