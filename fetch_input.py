@@ -33,11 +33,11 @@ def fetch_input(day,year,preview=False):
         os.mkdir(dir_year)
         print("Created directory")
     file_input = BASE_PATH / TEMPLATE_INPUT.format(day=day,year=year)
-    url = TEMPLATE_URL.format(day=day,year=year)
     if os.path.isfile(file_input):
         print(f"Looks like you've got the {year} Day {day} input already")
     else:
         print(end=f"Fetching the {year} Day {day} input...")
+        url = TEMPLATE_URL.format(day=day,year=year)
         r = requests.get(url, cookies={"session":SESSION}, headers={"User-Agent":"https://github.com/AllanTaylor314/AdventOfCode/blob/main/fetch_input.py by allan.taylor.pi@gmail.com"})
         print("Got it!")
         if r.content == LOGIN_ERROR:
@@ -46,8 +46,8 @@ def fetch_input(day,year,preview=False):
         if r.content == EARLY_ERROR:
             print("Whoops - too soon!")
             return False
-        text = r.content.decode("utf8")
         if preview:
+            text = r.content.decode("utf8")
             lines = text.splitlines()
             trimmed_lines = [line[:PREVIEW_COLS]+(f"... [+{len(line)-PREVIEW_COLS}]" if len(line)>PREVIEW_COLS else "") for line in lines[:PREVIEW_ROWS]]
             if len(lines)>PREVIEW_ROWS:trimmed_lines.append(f"... [{len(lines)-PREVIEW_ROWS} more lines]")
@@ -59,7 +59,6 @@ def fetch_input(day,year,preview=False):
 
 
 now = datetime.now(tz=pytz.timezone('US/Eastern')) + timedelta(minutes=1) # because my computer is slightly out of sync
-# now = datetime(2015,12,5)
 print(end="Advent of Code")
 year = now.year
 day = None
@@ -71,8 +70,8 @@ if len(sys.argv)==1:
         print("\nBit late for an advent calendar now")
         sys.exit(1)
     else:
-        print(f" {year}, Day {day}")
         day = now.day
+        print(f" {year}, Day {day}")
         fetch_input(day,year,preview=True)
 else:print()
 for val in sys.argv[1:]:
@@ -83,7 +82,7 @@ for val in sys.argv[1:]:
         continue
     if 0<num<=25:
         day=num
-        if fetch_input(day,year):
+        if fetch_input(day,year,preview=len(sys.argv)<5):
             print(end="Waiting 5 seconds for ratelimiting...",flush=True)
             sleep(5)
             print("OK")
