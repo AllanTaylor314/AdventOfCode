@@ -8,14 +8,16 @@ Guidelines:
  - don't hardcode the session key!
  - include my contact details in the useragent header
 """
-from datetime import datetime, timedelta
-import pytz
-import sys
 import os
+import sys
+from datetime import datetime, timedelta
 from pathlib import Path
-import requests
 from time import sleep
+
+import pytz
+import requests
 from dotenv import load_dotenv
+
 load_dotenv()
 LOGIN_ERROR = b"Puzzle inputs differ by user.  Please log in to get your puzzle input.\n"
 EARLY_ERROR = b"Please don't repeatedly request this endpoint before it unlocks! The calendar countdown is synchronized with the server time; the link will be enabled on the calendar the instant this puzzle becomes available.\n"
