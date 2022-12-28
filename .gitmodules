@@ -1,3 +1,4 @@
 [submodule "inputs"]
 	path = inputs
+	branch = main
 	url = https://github.com/AllanTaylor314/aoc-inputs.git
