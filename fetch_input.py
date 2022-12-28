@@ -21,16 +21,18 @@ EARLY_ERROR = b"Please don't repeatedly request this endpoint before it unlocks!
 SESSION = os.environ["SESSION"]
 BASE_PATH = Path(os.path.dirname(os.path.realpath(__file__))) # Let this be run from anywhere and act in the right place
 
-now = datetime.now(tz=pytz.timezone('US/Eastern')) + timedelta(minutes=5)
+now = datetime.now(tz=pytz.timezone('US/Eastern')) + timedelta(minutes=1) # because my computer is slightly out of sync
 # now = datetime(2015,12,5)
-print(f"Advent of Code {now.year}")
+print(end=f"Advent of Code {now.year}")
 
 if now.month != 12:
-    print("It's not December yet!")
+    print("\nIt's not December yet!")
     sys.exit(1)
-if now.day > 25:
-    print("Bit late for an advent calendar now")
+elif now.day > 25:
+    print("\nBit late for an advent calendar now")
     sys.exit(1)
+else:
+    print(f", Day {now.day}")
 
 dir_year = BASE_PATH / f"./{now.year}"
 if not os.path.isdir(dir_year):
