@@ -11,48 +11,31 @@ timer_parse_start=perf_counter()
 ############################## PARSER ##############################
 with open(INPUT_PATH) as file:
     header,_,*lines = file.read().splitlines()
-directions = {}
-ghost_starts = []
-for line in lines:
-    a,b = line.split(' = ')
-    c,d = b[1:-1].split(', ')
-    directions[a]=c,d
-    if a[-1]=='A':
-        ghost_starts.append(a)
+lrs = list(map('LR'.index,header))
+directions = {line[:3]:(line[7:10],line[12:15]) for line in lines}
+ghost_starts = [loc for loc in directions if loc.endswith('A')]
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
 p1 = 0
 loc = 'AAA'
-for lr in cycle(header):
-    if lr == 'L':
-        loc = directions[loc][0]
-    elif lr == 'R':
-        loc = directions[loc][1]
-    else:
-        raise ValueError()
+for lr in cycle(lrs):
+    loc = directions[loc][lr]
     p1+=1
     if loc == 'ZZZ':
         break
 print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
-print(len(ghost_starts), "ghosts")
-p2 = 0
+ghost_counts = []
 for i,loc in enumerate(ghost_starts):
     count = 0
-    for lr in cycle(header):
-        if lr == 'L':
-            loc = directions[loc][0]
-        elif lr == 'R':
-            loc = directions[loc][1]
-        else:
-            raise ValueError()
+    for lr in cycle(lrs):
+        loc = directions[loc][lr]
         count+=1
         if loc.endswith('Z'):
-            ghost_starts[i] = count
-            print(f"Ghost {i}: {count}")
+            ghost_counts.append(count)
             break
-p2 = reduce(lcm, ghost_starts, 1)
+p2 = reduce(lcm, ghost_counts)
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
