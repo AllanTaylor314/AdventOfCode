@@ -21,13 +21,7 @@ p1 = sum(extrapolate(np.array(row)) for row in data)
 print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
-p2 = 0
-def backtrapolate(row):
-    new_row = row[1:]-row[:-1]
-    if any(new_row):
-        return row[0]-backtrapolate(new_row)
-    return row[0]
-p2 = sum(backtrapolate(np.array(row)) for row in data)
+p2 = sum(extrapolate(np.array(row)[::-1]) for row in data)
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
