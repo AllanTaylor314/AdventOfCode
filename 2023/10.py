@@ -13,19 +13,23 @@ grid = {j+i*1j:c for i,line in enumerate(lines) for j,c in enumerate(line)}
 start ,= [k for k,v in grid.items() if v=='S']
 # grid[start] = 'L' # manual - what I actually used
 # auto - done later
-options = set('FL7J')
+options = set('FL7J-|')
 if grid[start-1] in '.|7J':
     options.discard('7')
     options.discard('J')
+    options.discard('-')
 if grid[start+1] in '.|FL':
     options.discard('F')
     options.discard('L')
+    options.discard('-')
 if grid[start-1j] in '.-LJ':
     options.discard('L')
     options.discard('J')
+    options.discard('|')
 if grid[start+1j] in '.-F7':
     options.discard('F')
     options.discard('7')
+    options.discard('|')
 grid[start] ,= options
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
