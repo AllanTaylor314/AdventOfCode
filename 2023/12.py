@@ -38,39 +38,9 @@ timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
 def unfold(springs, clues):
     return "?".join([springs]*5), clues*5
-def gen_valid_arrangements(springs, clues, run_size = 0):
-    # print(springs, clues, run_size)
-    if not springs:
-        if ((len(clues)==1 and clues[0] == run_size)
-        or (len(clues)==0 and run_size == 0)):
-            yield ''
-        # else:
-        #     yield 'XE'
-        return
-    spring = springs[0]
-    springs = springs[1:]
-    clue, *new_clues = clues or [0]
-    if spring == '?':
-        yield from gen_valid_arrangements('#'+springs, clues, run_size)
-        yield from gen_valid_arrangements('.'+springs, clues, run_size)
-    elif spring == '#':
-        if run_size > clue:
-            # yield 'XT'
-            return # too large a run
-        for sub in gen_valid_arrangements(springs, clues, run_size + 1):
-            yield '#' + sub
-    elif spring == '.':
-        if run_size != 0 and run_size != clue:
-            # yield 'XW'
-            return # wrong size run
-        for sub in gen_valid_arrangements(springs, new_clues if run_size else clues, 0):
-            yield '.' + sub
-    else:
-        raise ValueError("Spring not one of #.?")
 
 @cache
 def num_valid_arrangements(springs, clues, run_size = 0):
-    # print(springs, clues, run_size)
     if not springs:
         if ((len(clues)==1 and clues[0] == run_size)
         or (len(clues)==0 and run_size == 0)):
@@ -82,25 +52,17 @@ def num_valid_arrangements(springs, clues, run_size = 0):
     new_clues = tuple(new_clues)
     if spring == '?':
         return num_valid_arrangements('#'+springs, clues, run_size) + num_valid_arrangements('.'+springs, clues, run_size)
-    elif spring == '#':
-        if run_size > clue:
-            return 0
-        return num_valid_arrangements(springs, clues, run_size + 1)
-    elif spring == '.':
-        if run_size != 0 and run_size != clue:
-            return 0
-        return num_valid_arrangements(springs, new_clues if run_size else clues, 0)
-    else:
-        raise ValueError("Spring not one of #.?")
+    if spring == '#':
+        return 0 if run_size > clue else num_valid_arrangements(springs, clues, run_size + 1)
+    if spring == '.':
+        if run_size == 0:
+            return num_valid_arrangements(springs, clues, 0)
+        if run_size == clue:
+            return num_valid_arrangements(springs, new_clues, 0)
+        return 0
+    raise ValueError("Spring not one of #.?")
 
-# p2 = sum(num_arrangements(*unfold(s,c)) for s,c in data)
-# p2 = sum(1 for sc in data for _ in gen_valid_arrangements(*unfold(*sc)))
 p2 = sum(num_valid_arrangements(*unfold(*sc)) for sc in data)
-# for s,c in data:
-#     n = num_arrangements(*unfold(s,c))
-#     p2 += n
-#     print(n)
-
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
