@@ -17,28 +17,6 @@ for line in lines:
     data.append((springs,clues))
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
-def validate(springs, clues):
-    blocks = springs.split('.')
-    return tuple(len(s) for s in blocks if s) == clues
-def gen_arrangements(springs):
-    if not springs:
-        yield ''
-        return
-    spring = springs[0]
-    for sub in gen_arrangements(springs[1:]):
-        if spring in '.?':
-            yield '.' + sub
-        if spring in '#?':
-            yield '#' + sub
-def num_arrangements(springs, clues):
-    return sum(validate(s,clues) for s in gen_arrangements(springs))
-p1 = sum(num_arrangements(s,c) for s,c in data)
-print("Part 1:",p1)
-timer_part1_end=timer_part2_start=perf_counter()
-############################## PART 2 ##############################
-def unfold(springs, clues):
-    return "?".join([springs]*5), clues*5
-
 @cache
 def num_valid_arrangements(springs, clues, run_size = 0):
     if not springs:
@@ -61,6 +39,15 @@ def num_valid_arrangements(springs, clues, run_size = 0):
             return num_valid_arrangements(springs, new_clues, 0)
         return 0
     raise ValueError("Spring not one of #.?")
+
+
+p1 = sum(num_valid_arrangements(*sc) for sc in data)
+print("Part 1:",p1)
+timer_part1_end=timer_part2_start=perf_counter()
+############################## PART 2 ##############################
+def unfold(springs, clues):
+    return "?".join([springs]*5), clues*5
+
 
 p2 = sum(num_valid_arrangements(*unfold(*sc)) for sc in data)
 print("Part 2:",p2)
