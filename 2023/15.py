@@ -37,7 +37,7 @@ for step in steps:
 
 p2 = 0
 for box_n, hmap in enumerate(lens):
-    for lens_s, focal_length in enumerate(hmap.values(),1):
+    for lens_n, focal_length in enumerate(hmap.values(),1):
         p2 += (box_n + 1) * lens_n * focal_length
 
 print("Part 2:",p2)
