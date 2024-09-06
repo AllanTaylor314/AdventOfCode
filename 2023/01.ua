@@ -9,7 +9,7 @@ Words ← {"zero""one""two""three""four""five""six""seven""eight""nine"}
 ⊃(
   ≡(⋕⊢⊢regex "\\d"°□)
 | ≡(⋕⊢⊢regex "\\d"⇌°□)
-| ≡(⍣⋕(⊗:Words;:)⊢⊢regex ⊂"\\d|"⊐/(⊂⊂:"|")Words°□)
-| ≡(⍣⋕(⊗:Words;:)⇌⊢⊢regex ⊂"\\d|"⇌⊐/(⊂⊂:"|")Words⇌°□)
+| ≡(⍣⋕(⊗:Words◌:)⊢⊢regex ⊂"\\d|"/(⊂⊙°□⊂°□:"|")Words°□)
+| ≡(⍣⋕(⊗:Words◌:)⇌⊢⊢regex ⊂"\\d|"⇌/(⊂⊙°□⊂°□:"|")Words⇌°□)
 )
 :∩(/++×10)
