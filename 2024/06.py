@@ -9,6 +9,7 @@ timer_parse_start=perf_counter()
 with open(INPUT_PATH) as file:
     lines = file.read().splitlines()
 grid = {(i,j):c for i,line in enumerate(lines) for j,c in enumerate(line)}
+start_location ,= (k for k,v in grid.items() if v=="^")
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
 def step(loc,d,extra=None):
@@ -21,7 +22,7 @@ def step(loc,d,extra=None):
 def solve(extra=None):
     visited_pairs = set()
     visited = set()
-    location ,= (k for k,v in grid.items() if v=="^")
+    location = start_location
     direction = (-1,0)
     while location in grid:
         if (location,direction) in visited_pairs:
@@ -37,6 +38,7 @@ p1 = len(og_path)
 print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
+og_path.discard(start_location)
 p2 = sum(solve(l) is True for l in og_path)
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
