@@ -24,12 +24,12 @@ for i,n in enumerate(nums):
 
 left_ptr = 0
 while True:
+    while file_system[-1] is None:
+        file_system.pop()
     while left_ptr < len(file_system) and file_system[left_ptr] is not None:
         left_ptr += 1
     if left_ptr >= len(file_system):
         break
-    while file_system[-1] is None:
-        file_system.pop()
     file_system[left_ptr] = file_system.pop()
 
 p1 = sum(a*b for a,b in enumerate(file_system))
