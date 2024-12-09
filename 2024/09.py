@@ -60,22 +60,6 @@ class DLLNode:
         self.prev = new_node
         if new_node.prev is not None:
             new_node.prev.next = new_node
-    def merge_empty(self):
-        right = left = self
-        size = self.size
-        while left.prev is not None and left.prev.contents is None:
-            left = left.prev
-            size += left.size
-        while right.next is not None and right.next.contents is None:
-            right = right.next
-            size += right.size
-        self.size = size
-        self.prev = left and left.prev
-        self.right = right and right.prev
-        if self.prev is not None:
-            self.prev.next = self
-        if self.next is not None:
-            self.next.prev = self
          
 head = None
 tail = None
@@ -123,7 +107,6 @@ for node in reversed(block_nodes):
             curr.replace(node)
         else:
             curr.insert_before(node)
-        curr.merge_empty()
 
 
 p2 = 0
