@@ -61,8 +61,7 @@ class DLLNode:
         if new_node.prev is not None:
             new_node.prev.next = new_node
          
-head = None
-tail = None
+head = tail = None
 block_nodes = []
 for i,c in enumerate(data):
     n = int(c)
@@ -92,16 +91,12 @@ def print_dll():
 for node in reversed(block_nodes):
     curr = head
     while curr.contents is not None or curr.size < node.size:
-        if curr is None or curr is node:
+        if curr is node:
             break
         curr = curr.next
-        if curr is None or curr is node:
-            break
     else:
         new_node = DLLNode(node.size,None)
         node.replace(new_node)
-        assert curr.size >= node.size
-        assert curr.contents is None
         curr.size -= node.size
         if curr.size == 0:
             curr.replace(node)
