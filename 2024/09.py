@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from time import perf_counter
 from itertools import zip_longest
+from heapq import heappop, heappush
 timer_script_start=perf_counter()
 SCRIPT_PATH=Path(os.path.realpath(__file__))
 INPUT_PATH=SCRIPT_PATH.parent.parent/"inputs"/Path(SCRIPT_PATH.parent.name,SCRIPT_PATH.stem+".txt")
@@ -39,26 +40,30 @@ fills = nums[::2]
 frees = nums[1::2]
 
 running_space = 0
-fill_locs = {}
-free_locs = []
+fill_locs = []
+free_heaps = [[] for i in range(10)]
 for fid,(fill,free) in enumerate(zip_longest(fills,frees,fillvalue=0)):
-    fill_locs[fid] = (running_space, fill)
+    fill_locs.append((running_space, fill))
     running_space += fill
-    free_locs.append((running_space,free))
+    free_heaps[free].append(running_space)
     running_space += free
 
 for fid in reversed(range(len(fill_locs))):
     fill_index, fill_size = fill_locs[fid]
-    for i,(free_index,free_size) in enumerate(free_locs):
-        if free_index < fill_index:
-            if free_size >= fill_size:
-                fill_locs[fid] = (free_index, fill_size)
-                free_locs[i] = (free_index+fill_size, free_size-fill_size)
-                break
-        else:
-            break
-p2 = sum(fid*sum(range(fi,fi+fs)) for fid,(fi,fs) in fill_locs.items())
+    free_index = fill_index
+    for size in range(fill_size, 10):
+        heap = free_heaps[size]
+        if heap:
+            index = heap[0]
+            if index < free_index:
+                free_index = index
+                free_size = size
+    if free_index != fill_index:
+        fill_locs[fid] = free_index, fill_size
+        heappop(free_heaps[free_size])
+        heappush(free_heaps[free_size-fill_size], free_index+fill_size)
 
+p2 = sum(fid*sum(range(fi,fi+fs)) for fid,(fi,fs) in enumerate(fill_locs))
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
