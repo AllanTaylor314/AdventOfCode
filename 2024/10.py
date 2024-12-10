@@ -12,7 +12,7 @@ with open(INPUT_PATH) as file:
 grid = {(i,j):int(c) for i,line in enumerate(lines) for j,c in enumerate(line) if c != '.'}
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
-candidate_heads = [ij for ij,h in grid.items() if h==0]
+trailheads = [ij for ij,h in grid.items() if h==0]
 
 DIRECTIONS = [(0,1),(1,0),(0,-1),(-1,0)]
 
@@ -23,30 +23,24 @@ def add(*ps):
 def trails_from_loc(ij):
     if grid[ij] == 9:
         return {ij}
-    ends = set()
+    ends = []
     for d in DIRECTIONS:
         nij = add(ij,d)
         if grid.get(nij) == grid[ij] + 1:
-            ends |= trails_from_loc(nij)
+            ends.extend(trails_from_loc(nij))
     return ends
-def num_trails_from_loc(ij):
-    return len(trails_from_loc(ij))
-p1 = sum(map(num_trails_from_loc,candidate_heads))
+
+def score(ij):
+    return len(set(trails_from_loc(ij)))
+
+p1 = sum(map(score,trailheads))
 print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
-@cache
-def num_distinct_trails_from_loc(ij):
-    if grid[ij] == 9:
-        return 1
-    count = 0
-    for d in DIRECTIONS:
-        nij = add(ij,d)
-        if grid.get(nij) == grid[ij] + 1:
-            count += num_distinct_trails_from_loc(nij)
-    return count
-p2 = sum(map(num_distinct_trails_from_loc,candidate_heads))
+def rating(ij):
+    return len(trails_from_loc(ij))
 
+p2 = sum(map(rating,trailheads))
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
