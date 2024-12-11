@@ -10,13 +10,14 @@ timer_parse_start=perf_counter()
 with open(INPUT_PATH) as file:
     data = list(map(int,file.read().strip().split()))
 
-timer_parse_end=timer_part1_start=perf_counter()
+timer_parse_end=timer_part1_start=timer_part2_start=perf_counter()
 ############################## PART 1 ##############################
-p1 = 0
 stones = Counter(data)
 for _ in range(75):
     if _ == 25:
         p1 = sum(stones.values())
+        print("Part 1:",p1)
+        timer_part1_end=perf_counter()
     new_stones = Counter()
     for stone, qty in stones.items():
         if stone == 0:
@@ -30,8 +31,6 @@ for _ in range(75):
         else:
             new_stones[stone * 2024] += qty
     stones = new_stones
-print("Part 1:",p1)
-timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
 p2 = sum(stones.values())
 print("Part 2:",p2)
