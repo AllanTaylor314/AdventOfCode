@@ -18,23 +18,17 @@ timer_parse_end=perf_counter()
 p1 = p2 = 0
 for (ax,ay),(bx,by),(x,y) in zip(As,Bs,Ps):
     mat_div = ax*by-bx*ay
-    na = by*x-bx*y
-    nb = -ay*x+ax*y
-    if na%mat_div == 0 and nb%mat_div==0:
-        na //= mat_div
-        nb //= mat_div
-        if na >= 0 and nb >= 0:
-            p1 += 3*na + nb
+    na, ra = divmod(by*x-bx*y,mat_div)
+    nb, rb = divmod(ax*y-ay*x,mat_div)
+    if na>=ra==0==rb<=nb:
+        p1 += 3*na + nb
 ############################## PART 2 ##############################
     x += 10000000000000
     y += 10000000000000
-    na = by*x-bx*y
-    nb = -ay*x+ax*y
-    if na%mat_div == 0 and nb%mat_div==0:
-        na //= mat_div
-        nb //= mat_div
-        if na >= 0 and nb >= 0:
-            p2 += 3*na + nb
+    na, ra = divmod(by*x-bx*y,mat_div)
+    nb, rb = divmod(ax*y-ay*x,mat_div)
+    if na>=ra==0==rb<=nb:
+        p2 += 3*na + nb
 print("Part 1:",p1)
 print("Part 2:",p2)
 timer_script_end=perf_counter()
