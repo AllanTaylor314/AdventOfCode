@@ -5,8 +5,6 @@ import re
 timer_script_start=perf_counter()
 SCRIPT_PATH=Path(os.path.realpath(__file__))
 INPUT_PATH=SCRIPT_PATH.parent.parent/"inputs"/Path(SCRIPT_PATH.parent.name,SCRIPT_PATH.stem+".txt")
-DIRECTIONS = [(0,1),(1,0),(0,-1),(-1,0)]
-def add(*ps): return tuple(map(sum,zip(*ps)))
 timer_parse_start=perf_counter()
 ############################## PARSER ##############################
 with open(INPUT_PATH) as file:
