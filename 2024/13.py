@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from time import perf_counter
 import re
-import numpy as np
 timer_script_start=perf_counter()
 SCRIPT_PATH=Path(os.path.realpath(__file__))
 INPUT_PATH=SCRIPT_PATH.parent.parent/"inputs"/Path(SCRIPT_PATH.parent.name,SCRIPT_PATH.stem+".txt")
@@ -20,23 +19,26 @@ timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
 p1 = 0
 for a,b,p in zip(As,Bs,Ps):
-    mat = np.array([a,b]).T
-    na, nb = np.linalg.solve(mat,p)
-    ca,cb = ab = round(na),round(nb)
-    if list(mat@ab)==p and na >= 0 and nb >= 0:
-        p1 += 3*ca + cb
-print("Part 1:",p1) # not 129, 169, 18394
+    ax,ay = a
+    bx,by = b
+    x,y = p
+    mat_div = ax*by-bx*ay
+    na = by*x-bx*y
+    nb = -ay*x+ax*y
+    if na%mat_div == 0 and nb%mat_div==0:
+        na//=mat_div
+        nb//=mat_div
+        if na >= 0 and nb >= 0:
+            p1 += 3*na + nb
+print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
 p2 = 0
 for a,b,p in zip(As,Bs,Ps):
-    mat = np.array([a,b]).T
     ax,ay = a
     bx,by = b
     p = (p[0]+10000000000000,p[1]+10000000000000)
     x,y = p
-    # mat = [[ax,bx],[ay,by]]
-    # mat_inv = [[by,-bx],[-ay,ax]]
     mat_div = ax*by-bx*ay
     na = by*x-bx*y
     nb = -ay*x+ax*y
