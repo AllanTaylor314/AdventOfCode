@@ -1,9 +1,8 @@
-from itertools import count
 import os
 from pathlib import Path
 from time import perf_counter
 import re
-from math import prod, lcm
+from math import prod
 from PIL import Image
 timer_script_start=perf_counter()
 SCRIPT_PATH=Path(os.path.realpath(__file__))
@@ -33,22 +32,12 @@ quads = [0 for _ in range(5)]
 for loc in end_locs:
     quads[get_quadrant(loc)] += 1
 p1 = prod(quads[1:])
-print("Part 1:",p1) # not 230582440
+print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
 GENERATE_TEXT = False
 GENERATE_IMAGES = False
-p2 = 0
-def how_disconnected(locations):
-    num_isolated = 0
-    for loc in locations:
-        neis = {add(loc,d) for d in DIRECTIONS}
-        if not neis & locations:
-            num_isolated += 1
-    return num_isolated
-def covered_area(locations):
-    xs, ys = zip(*locations)
-    return (max(xs)-min(xs)+1),(max(ys)-min(ys)+1)
+
 def spread(locations):
     xs, ys = zip(*locations)
     mx = sum(xs)/len(xs)
@@ -59,22 +48,34 @@ def spread(locations):
 
 if GENERATE_TEXT:
     f = open("14-out.txt","w")
+min_x_spread = min_y_spread = 10**10
+min_x_spread_time = min_y_spread_time = 0
 
-for time in range(width*height):
-    locs = {((px+vx*time)%width, (py+vy*time)%height) for px, py, vx, vy in data}
+n_loops = width*height if GENERATE_TEXT or GENERATE_IMAGES else max(width, height)
+for time in range(n_loops):
+    locations = [((px+vx*time)%width, (py+vy*time)%height) for px, py, vx, vy in data]
     if GENERATE_TEXT:
+        loc_set = set(locations)
         print(time,file=f)
         for y in range(height):
             for x in range(width):
-                print(end=" #"[(x,y) in locs],file=f)
+                print(end=" #"[(x,y) in loc_set],file=f)
             print(file=f)
         print(file=f,flush=True)
     if GENERATE_IMAGES:
         img = Image.new("1",(width,height))
-        for loc in locs:
+        for loc in locations:
             img.putpixel(loc,1)
         img.save(SCRIPT_PATH.parent/"14-out"/f"{time:05d}.png")
+    sx, sy = spread(locations)
+    if sx < min_x_spread:
+        min_x_spread = sx
+        min_x_spread_time = time
+    if sy < min_y_spread:
+        min_y_spread = sy
+        min_y_spread_time = time
 
+p2 = next(i for i in range(width*height) if i%width==min_x_spread_time and i%height==min_y_spread_time)
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
