@@ -81,23 +81,18 @@ for arrow in arrows:
         continue
     related_boxes = set()
     right_boxes = {add(box,RIGHT) for box in boxes}
-    if d == LEFT:
-        last_box = next_box = first_box = add(new_loc,LEFT)
+    if d[1]: # Horizontal
+        first_box = new_loc
+        if d == LEFT:
+            first_box = add(first_box,LEFT)
+        last_box = next_box = first_box
         if next_box in boxes:
             related_boxes.add(last_box)
             while next_box in boxes:
                 last_box = next_box
                 related_boxes.add(last_box)
-                next_box = add(next_box,LEFT,LEFT)
-    elif d == RIGHT:
-        last_box = next_box = first_box = new_loc
-        if next_box in boxes:
-            related_boxes.add(last_box)
-            while next_box in boxes:
-                last_box = next_box
-                related_boxes.add(last_box)
-                next_box = add(next_box,RIGHT,RIGHT)
-    else:
+                next_box = add(next_box,d,d)
+    else: # Vertical
         next_box = None
         if new_loc in boxes:
             next_box = new_loc
@@ -117,8 +112,6 @@ for arrow in arrows:
                 rd_box = add(box,RIGHT,d)
                 if rd_box in boxes:
                     stack.add(rd_box)
-                if rd_box in right_boxes:
-                    stack.add(add(rd_box,LEFT))
     new_boxes = {add(box,d) for box in related_boxes}
     new_right_boxes = {add(box,RIGHT) for box in new_boxes}
     if (new_boxes|new_right_boxes)&walls:
