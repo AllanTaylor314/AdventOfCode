@@ -1,6 +1,6 @@
 Step ← (
-  ◡(∈:⊓+⊚⊙⊙⋅∘)
-  ⨬(◡(⊡+⊙⊙∘)
+  ◡(∈:+⊙⊙⋅⊚)
+  ⨬(◡(⊡+)
     ⨬(+ # Neither wall nor block - simple step
     | +◡⊙⊙∘
       ⍢(+◡⋅⋅∘|⊡)
@@ -12,7 +12,7 @@ Step ← (
       | ⋅⋅◌    # Would push into wall - do nothing
       )
     )
-  | ⋅⊙⊙∘ # Bot hits wall - do nothing
+  | ◌ # Bot hits wall - do nothing
   )
 )
 
