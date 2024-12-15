@@ -1,10 +1,9 @@
 Step ← (
   ◡(∈:⊓+⊚⊙⊙⋅∘)
-  ⨬(◡(∈:⊓+⊚⊙⊙∘)
-    ⨬(+ # Neither wall nor block
-    | ◡⋅⋅⊚
-      +◡⋅⊙∘
-      ⍢(+◡⋅⋅∘|∈:)
+  ⨬(◡(⊡+⊙⊙∘)
+    ⨬(+ # Neither wall nor block - simple step
+    | +◡⊙⊙∘
+      ⍢(+◡⋅⋅∘|⊡)
       ◡⊙⋅⋅⋅⋅∘
       ⊡
       ⨬(⊙⋅+
