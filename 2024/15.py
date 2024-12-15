@@ -89,8 +89,6 @@ for arrow in arrows:
                 last_box = next_box
                 related_boxes.add(last_box)
                 next_box = add(next_box,LEFT,LEFT)
-        if add(next_box,RIGHT) in walls:
-            continue
     elif d == RIGHT:
         last_box = next_box = first_box = new_loc
         if next_box in boxes:
@@ -99,8 +97,6 @@ for arrow in arrows:
                 last_box = next_box
                 related_boxes.add(last_box)
                 next_box = add(next_box,RIGHT,RIGHT)
-        if next_box in walls:
-            continue
     else:
         next_box = None
         if new_loc in boxes:
