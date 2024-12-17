@@ -59,14 +59,15 @@ def run_program(A=RegisterA, B=0, C=0):
     return ",".join(map(str,Output))
 
 p1 = run_program()
-print("Part 1:",p1) # not 0,5,1,2,5,0,2,3,1
+print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
 s = z3.Solver()
 original_A = A = z3.BitVec("A",len(Program)*3+7)
+X, Y = (b for a,b in zip(Program[::2],Program[1::2]) if a == 1)
 for target_out in Program:
-    C = A >> (A & 0b111 ^ 0b101)
-    B = A ^ 0b011 ^ C
+    C = A >> (A & 0b111 ^ X)
+    B = A ^ X ^ Y ^ C
     s.add(B & 0b111 == target_out)
     A >>= 3
 s.add(A==0)
