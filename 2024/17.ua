@@ -36,17 +36,31 @@ Step ← (
     +2
   )
 )
-$Output[]
-$ Register A: 729
+$ Register A: 2024
 $ Register B: 0
 $ Register C: 0
 $ 
-$ Program: 0,1,5,4,3,0
+$ Program: 0,3,5,4,3,0
 ⍣(&fras"../inputs/2024/17.txt"◌)
 ⊜⋕×⊸⊃(≥@0|≤@9)
 ⊃↘₃↙₃
-⊓$Program$Registers
-$InstructionPointer0
-⍢(Step|>⊙⧻)
-⋅⋅⋅/$"_,_"
+Program   ←
+Registers ←
+RunProgram ← (
+  0Program:[]
+  ⍢(Step|>⊙⧻)
+  ⋅⋅◌
+)
+RunProgram Registers
+/$"_,_"
 &pf⊂:@\n
+
+0
+⍥(
+  ♭⊞+⇡8×8
+  ▽⊸≡(
+    RunProgram⇌[0 0 ∘]
+    ≍↙:Program¯⊸⧻)
+)⧻ Program
+▽⊸≡(≍Program RunProgram⇌[0 0 ∘])
+/↧
