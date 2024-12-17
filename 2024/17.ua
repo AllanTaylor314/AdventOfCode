@@ -5,11 +5,11 @@ GetRegister ← ⊡⊙⋅⋅∘
 Step ← (
   ◡⊡
   ⨬(◡⊃(GetCombo|GetRegister0)
-    ⍜⊙⋯↘
+    ⌊÷ⁿ:2
     SetRegister0
     +2
   | ◡⊃(GetOperand|GetRegister1)
-    °⋯/≠⬚0⊟∩⋯
+    ⍜⋯/≠⊟
     SetRegister1
     +2
   | ◡GetCombo
@@ -19,7 +19,7 @@ Step ← (
   | ◡(≠0GetRegister0)
     ⨬(+2|⊙◌◡GetOperand)
   | ◡⊃(GetRegister1|GetRegister2)
-    °⋯/≠⬚0⊟∩⋯
+    ⍜⋯/≠⊟
     SetRegister1
     +2
   | ◡GetCombo
@@ -27,11 +27,11 @@ Step ← (
     ⊃(⋅⊙⊙∘|⊂:⊙⋅⋅⋅∘)
     +2
   | ◡⊃(GetCombo|GetRegister0)
-    ⍜⊙⋯↘
+    ⌊÷ⁿ:2
     SetRegister1
     +2
   | ◡⊃(GetCombo|GetRegister0)
-    ⍜⊙⋯↘
+    ⌊÷ⁿ:2
     SetRegister2
     +2
   )
@@ -56,8 +56,7 @@ RunProgram Registers
 &pf⊂:@\n
 
 0
-⍥(
-  ♭⊞+⇡8×8
+⍥(♭⊞+⇡8×8
   ▽⊸≡(
     RunProgram⇌[0 0 ∘]
     ≍↙:Program¯⊸⧻)
