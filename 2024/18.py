@@ -41,10 +41,16 @@ p1 = get_path(all_nums[:1024])
 print("Part 1:",p1)
 timer_part1_end=timer_part2_start=perf_counter()
 ############################## PART 2 ##############################
-for i,n in enumerate(all_nums):
-    if get_path(all_nums[:i+1]) == INF_COST:
-        p2 = f"{n[0]},{n[1]}"
-        break
+def binary_search(lb=0, ub=len(all_nums)-1):
+    if lb >= ub:
+        return lb
+    mid = (lb+ub)//2
+    res = get_path(all_nums[:mid+1])
+    if res == INF_COST:
+        return binary_search(lb,mid)
+    return binary_search(mid+1,ub)
+n = all_nums[binary_search()]
+p2 = f"{n[0]},{n[1]}"
 
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
