@@ -32,4 +32,10 @@ Simulate ← (
   0_0
   ◌path(↯:1⊸⧻⊙◌▽◡⬚0⊡⊙⋅∘+Directions¤|≍)
 )
-⊃(⊙◌/$"_,_"⊡-1⍢(+1|≠∞Simulate)|Simulate)
+BinSearch ← |4.4 (
+  +1⌊÷2◡+
+  ◡(Simulate ⊙⋅⋅∘)
+  =∞
+  ⨬(⊙⋅∘|⊙⊙◌:-1)
+)
+⊃(/$"_,_"⊡⋅⊙⊙◌⍢(BinSearch|≠)0-1⊸⋅⧻|Simulate)
