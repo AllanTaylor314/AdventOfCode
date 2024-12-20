@@ -53,18 +53,25 @@ def manhattan_distance(a,b=(0,0)):
     for j,k in zip(a,b):
         d+=abs(j-k)
     return d
+def gen_manhattan(loc, dist):
+    i, j = loc
+    for di in range(dist):
+        dj = dist - di
+        yield (i+di,j+dj)
+        yield (i+dj,j-di)
+        yield (i-di,j-dj)
+        yield (i-dj,j+di)
 p2 = 0
 for ijs,cs in grid.items():
-    for ije,ce in grid.items():
-        if ije == ijs:
-            continue
-        if manhattan_distance(ije, ijs) > 20:
-            continue
-        if cs != "#" and ce != "#":
-            before_cost = states[ijs]
-            after_cost = states[ije]
-            if before_cost != 10**10 and after_cost !=10**10:
-                savings = after_cost - before_cost - manhattan_distance(ijs,ije)
+    for dist in range(1,21):
+        for ije in gen_manhattan(ijs,dist):
+            ce = grid.get(ije)
+            if ce is None:
+                continue
+            if cs != "#" and ce != "#":
+                before_cost = states[ijs]
+                after_cost = states[ije]
+                savings = after_cost - before_cost - dist
                 if savings >= 100:
                     p2 += 1
 print("Part 2:",p2)
