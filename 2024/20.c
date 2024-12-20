@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #define COORD(row,col) ((row)*lineSize+(col))
-#define GRID_SIZE 40000
+#define GRID_SIZE 20000
 int grid[GRID_SIZE] = {0};
 
 int main(void) {
@@ -74,10 +74,10 @@ int main(void) {
                 for (int dist = 1; dist <= 20; ++dist) {
                     for (int di = 1; di <= dist; ++di) {
                         int dj = dist - di;
-                        if (0 <= i+di && i+di < numLines && 0 <= j+dj && j+dj < lineSize && grid[COORD(i+di,j+dj)] >= 0 && grid[COORD(i,j)] - grid[COORD(i+di,j+dj)] - dist >= 100) ++p2;
-                        if (0 <= i+dj && i+dj < numLines && 0 <= j-di && j-di < lineSize && grid[COORD(i+dj,j-di)] >= 0 && grid[COORD(i,j)] - grid[COORD(i+dj,j-di)] - dist >= 100) ++p2;
-                        if (0 <= i-di && i-di < numLines && 0 <= j-dj && j-dj < lineSize && grid[COORD(i-di,j-dj)] >= 0 && grid[COORD(i,j)] - grid[COORD(i-di,j-dj)] - dist >= 100) ++p2;
-                        if (0 <= i-dj && i-dj < numLines && 0 <= j+di && j+di < lineSize && grid[COORD(i-dj,j+di)] >= 0 && grid[COORD(i,j)] - grid[COORD(i-dj,j+di)] - dist >= 100) ++p2;
+                        if (i+di < numLines && j+dj < lineSize && grid[COORD(i+di,j+dj)] >= 0 && grid[COORD(i,j)] - grid[COORD(i+di,j+dj)] - dist >= 100) ++p2;
+                        if (i+dj < numLines && 0 <= j-di && grid[COORD(i+dj,j-di)] >= 0 && grid[COORD(i,j)] - grid[COORD(i+dj,j-di)] - dist >= 100) ++p2;
+                        if (0 <= i-di && 0 <= j-dj && grid[COORD(i-di,j-dj)] >= 0 && grid[COORD(i,j)] - grid[COORD(i-di,j-dj)] - dist >= 100) ++p2;
+                        if (0 <= i-dj && j+di < lineSize && grid[COORD(i-dj,j+di)] >= 0 && grid[COORD(i,j)] - grid[COORD(i-dj,j+di)] - dist >= 100) ++p2;
                     }
                 }
             }
