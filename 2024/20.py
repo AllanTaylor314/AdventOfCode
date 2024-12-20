@@ -16,33 +16,39 @@ start ,= (ij for ij,c in grid.items() if c=="S")
 end ,= (ij for ij,c in grid.items() if c=="E")
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
+UNREACHABLE = 10**10
 def next_states(state):
     return [add(state,d) for d in DIRECTIONS]
 def reverse_direction(direction):
     return tuple(-i for i in direction)
+def bfs(init_state):
+    states = defaultdict(lambda:UNREACHABLE)
+    states[init_state] = 0
+    to_update = {init_state}
+    while to_update:
+        state = to_update.pop()
+        cost = states[state]
+        for new_state in next_states(state):
+            new_loc = new_state
+            if grid[new_loc] == "#":
+                continue
+            new_cost = cost+1
+            if new_cost < states[new_state]:
+                states[new_state] = new_cost
+                to_update.add(new_state)
+    return states
 p1 = 0
-init_state = end
-states = defaultdict(lambda:10**10)
-states[init_state] = 0
-to_update = {init_state}
-while to_update:
-    state = to_update.pop()
-    cost = states[state]
-    for new_state in next_states(state):
-        new_loc = new_state
-        if grid[new_loc] == "#":
-            continue
-        new_cost = cost+1
-        if new_cost < states[new_state]:
-            states[new_state] = new_cost
-            to_update.add(new_state)
+end_states = bfs(end)
+start_states = bfs(start)
+full_cost = start_states[end]
+
 for ij,c in grid.items():
     if c == "#":
         for d in DIRECTIONS:
-            before_cost = states[add(ij,reverse_direction(d))]
-            after_cost = states[add(ij,d)]
-            if before_cost != 10**10 and after_cost !=10**10:
-                savings = after_cost - before_cost - 2
+            before_cost = start_states[add(ij,reverse_direction(d))]
+            after_cost = end_states[add(ij,d)]
+            if before_cost != UNREACHABLE and after_cost != UNREACHABLE:
+                savings = full_cost - after_cost - before_cost - 2
                 if savings >= 100:
                     p1 += 1
 print("Part 1:",p1)
@@ -69,9 +75,9 @@ for ijs,cs in grid.items():
             if ce is None:
                 continue
             if cs != "#" and ce != "#":
-                before_cost = states[ijs]
-                after_cost = states[ije]
-                savings = after_cost - before_cost - dist
+                before_cost = start_states[ijs]
+                after_cost = end_states[ije]
+                savings = full_cost - after_cost - before_cost - dist
                 if savings >= 100:
                     p2 += 1
 print("Part 2:",p2)
