@@ -59,17 +59,12 @@ def step(source, target, pad):
     dj = tj - sj
     vert = "v"*di+"^"*-di
     horiz = ">"*dj+"<"*-dj
-    if di == 0 or dj == 0:
+    if dj > 0 and (ti,sj) in pad:
+        return vert+horiz+"A"
+    if (si,tj) in pad:
         return horiz+vert+"A"
-    else:
-        if dj > 0 and (si+di,sj) in pad:
-            return vert+horiz+"A"
-        if di < 0 and (si,sj+dj) in pad:
-            return horiz+vert+"A"
-        if (si,sj+dj) in pad:
-            return horiz+vert+"A"
-        if (si+di,sj) in pad:
-            return vert+horiz+"A"
+    if (ti,sj) in pad:
+        return vert+horiz+"A"
 def routes(path, pad):
     out = []
     start = "A"
