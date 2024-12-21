@@ -36,22 +36,6 @@ def manhattan_distance(a,b=(0,0)):
     return d
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
-def unpack_path(path,pad):
-    ...
-def gen_step(source, target, pad):
-    ti,tj = pad[target]
-    si,sj = pad[source]
-    di = ti - si
-    dj = tj - sj
-    vert = "v"*di+"^"*-di
-    horiz = ">"*dj+"<"*-dj
-    if di == 0 or dj == 0:
-        yield horiz+vert+"A"
-    else:
-        if (si,sj+dj) in pad:
-            yield horiz+vert+"A"
-        if (si+di,sj) in pad:
-            yield vert+horiz+"A"
 def step(source, target, pad):
     ti,tj = pad[target]
     si,sj = pad[source]
