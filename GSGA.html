@@ -7,11 +7,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="snow.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <style>iframe, code, img {border-radius: 10px;}</style>
+    <style>
+        iframe,
+        code,
+        img {
+            border-radius: 10px;
+        }
+
+        #backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: skyblue;
+            z-index: -999;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #backdrop {
+                background: #040720;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: skyblue; z-index: -999;" id="backdrop"></div>
+    <div id="backdrop"></div>
     <h1>Golden Snowglobes Run Sheet</h1>
     <em>A collection of GSGA tasks for AdventOfCode 2024</em>
     <h2>4: <a href="https://www.reddit.com/r/adventofcode/comments/1h689qf/comment/m0ckyph/" target="_blank">Shorts</a>
@@ -63,8 +85,8 @@ for p in O:print(sum(c*(c in g(n))for c,n in C));O+=lambda*a:int("%d%d"%a),
     <h3>Live coding, recorded after the fact</h3>
     <em>Photosensitivity warning: It flickers a bit since it's changing quite fast, with the odd jump to different
         parts of the editor</em>
-    <iframe style="width:100%;aspect-ratio:16/9" src="https://www.youtube.com/embed/jxEd6bTMT8Q" title="YouTube video player"
-        frameborder="0"
+    <iframe style="width:100%;aspect-ratio:16/9" src="https://www.youtube.com/embed/jxEd6bTMT8Q"
+        title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <h2>20: <a href="https://www.reddit.com/r/adventofcode/comments/1hicdtb/comment/m2y3ymp/" target="_blank">Foreign
@@ -76,7 +98,7 @@ for p in O:print(sum(c*(c in g(n))for c,n in C));O+=lambda*a:int("%d%d"%a),
     <p>As always, all my code is in <a href="https://github.com/AllanTaylor314/AdventOfCode/" target="_blank">my
             repo</a>. As of writing this, I've solved everything in Python and everything except 15.2 and 16.2 in
         Uiua</p>
-    <script>hljs.highlightAll(); snowFall.snow(document.getElementById("backdrop"), { round: true, shadow: true, minSize: 2, maxSize: 5, flakeIndex: -1, maxSpeed: 2});</script>
+    <script>hljs.highlightAll(); snowFall.snow(document.getElementById("backdrop"), { round: true, shadow: true, minSize: 2, maxSize: 5, flakeIndex: -1, maxSpeed: 2 });</script>
 </body>
 
 </html>
