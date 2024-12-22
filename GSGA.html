@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <title>Golden Snowglobes Run Sheet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="snow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>iframe, code, img {border-radius: 10px;}</style>
+</head>
+
+<body>
+    <div style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: skyblue; z-index: -999;" id="backdrop"></div>
+    <h1>Golden Snowglobes Run Sheet</h1>
+    <em>A collection of GSGA tasks for AdventOfCode 2024</em>
+    <h2>4: <a href="https://www.reddit.com/r/adventofcode/comments/1h689qf/comment/m0ckyph/" target="_blank">Shorts</a>
+    </h2>
+    <p>A golfed Python script that reads the input from stdin and prints both parts to stdout with a space between
+    </p>
+    <pre><code>*l,g=*open(0),lambda i,j:l[i][j]if len(l)&gt;i&gt;-1&lt;j&lt;len(l[i
+])else"";e,*d=enumerate,-1,0,1;print(*map(sum,zip(*((all
+(c==g(i+n*x,j+n*y)for n,c in e("XMAS")),x!=0!=y!=c=="A"&lt;
+"M"==g(i-x,j-y)==g(i-y,j+x)&lt;"S"==g(i+x,j+y)==g(i+y,j-x))
+for i,m in e(l)for j,c in e(m)for x in d for y in d))))</code></pre>
+    <p>and a golfed Uiua program that reads from 04.txt, leaving both answers on the stack (which is implicitly
+        printed at the end). You can drag and drop an input file called 04.txt straight onto it to solve it.</p>
+    <iframe style="width:100%;max-width:800px;height:530px;border:none;overflow:hidden;"
+        src="https://www.uiua.org/embed?src=0_14_0__JCBNTU1TWFhNQVNNCiQgTVNBTVhNU01TQQokIEFNWFNYTUFBTU0KJCBNU0FNQVNNU01YCiQgWE1BU0FNWEFNTQokIFhYQU1NWFhBTUEKJCBTTVNNU0FTWFNTCiQgU0FYQU1BU0FBQQokIE1BTU1NWE1NTU0KJCBNWE1YQVhNQVNYCuKIqSgvK-KZrSniioMoCiAgw5fiioMo4oal4oipKC_Dl-KJoSjiiaHihrviipnihrsuKSl84oal4oipKC_Dl-KJoSjiiaHihrviipnihrvCry4pKSnCrywsLTHih6Ez4oaYMQp8IOKJoS_Dl1viioMo4oip4omh4oqD4oa74oqe4oa7wq8sLHziiKko4oip4omh4oa7wq8sLOKKmeKJoSjiiaHihrvih6Hiirjip7spKSziiaHih4wsKeKHoTRdCiniip49IlhNQVMi4qyaQCDiioJAIOKKnCQiXyAi4oq44omgQFxu4o2jKCZmcmFzIjA0LnR4dCLil4wpCg==">
+    </iframe>
+    <h2>Seven: <a href="https://www.reddit.com/r/adventofcode/comments/1h8l3z5/comment/m0tyd2b/" target="_blank">Numbers
+            went out of fashion</a></h2>
+    I heard hard-coded numbers were out of fashion, so here's some completely numberless Python. Want a zero? False.
+    Want a one? True. Need to subtract one? That's a ~-
+    <pre><code>from operator import*;O=add,mul
+C=[(int(a[:-True]),[*map(int,b)])for a,*b in map(str.split,open(False))]
+g=lambda l,i=-True:{o(v,l[i])for v in g(l,~-i%len(l))for o in O}if i else{l[i]}
+for p in O:print(sum(c*(c in g(n))for c,n in C));O+=lambda*a:int("%d%d"%a),
+</code></pre>
+    (reads from <code>stdin</code>, prints parts one and two on separate lines)
+    <h2>13: <a href="https://www.reddit.com/r/adventofcode/comments/1hd4wda/comment/m1uu5qi/" target="_blank">Behind
+            the scenes</a></h2>
+    <a href="https://imgur.com/jEYr5xN" target="_blank"><img style="width:816;max-height:612"
+            src="https://i.imgur.com/jEYr5xN.jpeg" /></a>
+    <p>
+        Here's my setup - a pair of 24 inch 1080p monitors, with a vertical monitor on the left for the puzzle and a
+        horizontal monitor on the right for my IDE of choice, VS Code. Within VS Code I have a few terminals: The
+        one on the left runs some custom scripts (<a
+            href="https://github.com/AllanTaylor314/AdventOfCode/blob/main/sleep_until.py"
+            target="_blank">sleep_until.py</a> and <a
+            href="https://github.com/AllanTaylor314/AdventOfCode/blob/main/fetch_input.py"
+            target="_blank">fetch_input.py</a>) for getting the input and displaying the first few lines, and the
+        one on the right runs my script (using <a href="https://pypi.org/project/when-changed/"
+            target="_blank">when-changed</a>) when the script or input file changes (which beats switching to the
+        terminal and hitting up &amp; enter). I built this PC a few months ago (since my laptop was getting a little
+        past it) - It runs an Intel 12400 and a Radeon RX 6600 with 32 GB of RAM (just a little shy of the 2 PB
+        needed for day 11). The PC has a large family of rubber ducks atop it, including four very festive ducks.
+        Not shown in the picture is the fan behind my chair. My office is upstairs which frequently reaches 30°C
+        (86°F) (in fact, it's 26°C as I write this at 2 A.M.)
+    </p>
+    <h2>15: <a href="https://www.reddit.com/r/adventofcode/comments/1hele8m/comment/m24vssz/" target="_blank">Fix it
+            in post</a></h2>
+    <h3>Live coding, recorded after the fact</h3>
+    <em>Photosensitivity warning: It flickers a bit since it's changing quite fast, with the odd jump to different
+        parts of the editor</em>
+    <iframe style="width:100%;aspect-ratio:16/9" src="https://www.youtube.com/embed/jxEd6bTMT8Q" title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h2>20: <a href="https://www.reddit.com/r/adventofcode/comments/1hicdtb/comment/m2y3ymp/" target="_blank">Foreign
+            Film</a></h2>
+    <h3>A solution in C, since I don't use it much</h3>
+    <iframe frameborder="0" scrolling="no" style="width:100%; height:1923px;" allow="clipboard-write"
+        src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2FAllanTaylor314%2FAdventOfCode%2Fblob%2Fmain%2F2024%2F20.c&style=default&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
+    <h2>&#8734;: and beyond</h2>
+    <p>As always, all my code is in <a href="https://github.com/AllanTaylor314/AdventOfCode/" target="_blank">my
+            repo</a>. As of writing this, I've solved everything in Python and everything except 15.2 and 16.2 in
+        Uiua</p>
+    <script>hljs.highlightAll(); snowFall.snow(document.getElementById("backdrop"), { round: true, shadow: true, minSize: 2, maxSize: 5, flakeIndex: -1, maxSpeed: 2});</script>
+</body>
+
+</html>
