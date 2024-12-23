@@ -48,3 +48,24 @@ IsClique ← (
 ◴≡⍆
 ▽⊸(=3≡(/+◰))
 /+≡IsClique
+BronKerbosch ← |4.2 (
+  ⊓($R|$P|$X)
+  ×∩(=0⧻)◡⋅⊙∘
+  ⨬($Maximal[]
+    ⍥(
+      ⊙(
+        $V⊢,
+        ◡⊃(⊂|◇SetIntersect ⊙⋅◌ get:Adjacency|◇SetIntersect ⊙⋅⋅◌ get:Adjacency)
+        BronKerbosch
+      )
+      ⨬(⋅∘|⊙◌)<◡∩⧻
+      ⊙(
+        ⊃(⋅∘|▽≠,⊙⋅∘|⊂⊙⋅⋅∘)
+      )
+    )◡⋅⋅⧻
+    ⊙⋅⋅◌
+  | ⊙⋅◌
+  )
+)
+BronKerbosch [] ⊙◌°mapAdjacency []
+/$"_,_"⍆
