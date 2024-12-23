@@ -1,3 +1,4 @@
+SetIntersect ← ▽⊸∊
 $ kh-tc
 $ qp-kh
 $ de-cg
@@ -41,8 +42,9 @@ IsClique ← (
   /↧♭⊞(↥⊃(=|∊°□get:Adjacency)).
 )
 ⊙◌°mapAdjacency
-⊃(▽=@t⊸≡◇⊢|⧅<2)
-↯∞_3⊞⊂
+⊸▽=@t⊸≡◇⊢
+⊞(□≡[⊙⊙∘]◡(◇SetIntersect∩(get:Adjacency)))
+/◇⊂♭
 ◴≡⍆
 ▽⊸(=3≡(/+◰))
 /+≡IsClique
