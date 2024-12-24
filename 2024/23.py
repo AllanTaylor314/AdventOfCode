@@ -45,7 +45,27 @@ def build_fully_connected_subgraph(nodes=frozenset()):
             best = new
     return best
 
-p2 = ",".join(sorted(build_fully_connected_subgraph()))
+# p2 = ",".join(sorted(build_fully_connected_subgraph()))
+
+# algorithm BronKerbosch1(R, P, X) is
+def BronKerbosch(r, p, x):
+#   if P and X are both empty then
+    if not p and not x:
+#       report R as a maximal clique
+        yield r
+        return
+#   for each vertex v in P do
+    while p:
+        v = p.pop()
+        p.add(v)
+#       BronKerbosch1(R ⋃ {v}, P ⋂ N(v), X ⋂ N(v))
+        yield from BronKerbosch(r|{v}, p&connected[v], x&connected[v])
+#       P := P \ {v}
+        p.remove(v)
+#       X := X ⋃ {v}
+        x.add(v)
+
+p2 = ",".join(sorted(max(BronKerbosch(set(),set(connected),set()),key=len)))
 
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
