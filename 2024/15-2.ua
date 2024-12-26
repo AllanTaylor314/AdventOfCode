@@ -1,27 +1,22 @@
 Directions ← [¯1_0 0_1 1_0 0_¯1]
 MoveUp ← (
-  ,
-  ⊸×₀
-  ◡⋅⋅∘
-  ⊸×/↥[⊸≡↻₁↻₁]⍜⊡⋅1      # Blocks affected by robot
-  ⍥(⊸×/↥[⊸≡⊃↻₋₁↻₁⊸↻₁])∞ # Blocks by blocks
-  ++⊃¯↻₁                # Move
-  ⊃⋅⊙◌∘
-  +¯1_0
+  +¯1_0                 # Move the robot
+  ,                     # Grab a copy of the blocks
+  ⊸×₀                   # and make an array of zeros the same size
+  ⊸×/↥[⊸≡↻₁]⍜⊡⋅1◡⋅⋅∘    # Blocks affected by robot
+  ⍥(⊸×/↥[⊸≡⊃↻₋₁↻₁⊸↻₁])∞ # Blocks affected by blocks
+  ++⊃¯↻₁                # Move all the blocks
+  ⊃⋅⊙◌∘                 # Rearrange the stack
 )
 MoveRight ← (
   +0_1
   ⟜(⍜(↘⊙⊡)(⍜(°□⊢⊜□)↻₁⊸(+1±⦷1_0)):°⊟)
 )
 MoveDown ← (
-  ,
-  ⊸×₀
-  ◡⋅⋅∘
-  ⊸×/↥[⊸≡↻₁↻₋₁]⍜⊡⋅1      # Blocks affected by robot
-  ⍥(⊸×/↥[⊸≡⊃↻₋₁↻₁⊸↻₋₁])∞ # Blocks by blocks
-  ++⊃¯↻₋₁                # Move
-  ⊃⋅⊙◌∘
   +1_0
+  ⊸×/↥[⊸≡↻₁]⍜⊡⋅1◡⋅⋅∘⊸×₀,
+  ⍥(⊸×/↥[⊸≡⊃↻₋₁↻₁⊸↻₋₁])∞
+  ⊃⋅⊙◌∘++⊃¯↻₋₁
 )
 MoveLeft ← (
   +0_¯1
@@ -30,7 +25,7 @@ MoveLeft ← (
 WholeBoxes ← +⊸≡↻¯1
 HasHitWall ← ↥⊃(⊡⊙⋅∘|/↥♭×WholeBoxes⋅⊙∘)
 Step₂ ← (
-  ⊗:Directions
+  ⊗:"^>v<"
   ⍣(⨬(MoveUp|MoveRight|MoveDown|MoveLeft)
     °0 ◡HasHitWall
   | ◌)
@@ -67,7 +62,7 @@ $ ^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>
 $ v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^
 ⍣(&fras"../inputs/2024/15.txt"◌)
 :°$"_\n\n_"
-⊓(⊏:Directions⊗:"^>v<"▽⊸≠@\n
+⊓(▽⊸≠@\n
 | ⊜∘⊸≠@\n
   °¤⊚°⊟₃⊞="@O#"
 )
