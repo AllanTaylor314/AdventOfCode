@@ -1,0 +1,1 @@
+print(*(g:={(i,j):int(c)for i,l in enumerate(open(0))for j,c in enumerate(l.strip())})and(t:=lambda k:[k]if g[k]>8 else[e for f in(t((k[0]+d[0],k[1]+d[1]))for d in[(0,1),(1,0),(0,-1),(-1,0)]if g.get((k[0]+d[0],k[1]+d[1]))==g[k]+1)for e in f])and map(sum,zip(*((len(set(a)),len(a))for a in(t(k)for k,h in g.items()if h<1)))))
