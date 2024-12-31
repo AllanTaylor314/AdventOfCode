@@ -5,34 +5,29 @@ let rec read_lines () =
   | "" -> []
   | a -> a :: read_lines ()
 
-let numpad c =
+let pad c =
   match c with
-  | '7' -> (-3, 0)
-  | '8' -> (-3, 1)
-  | '9' -> (-3, 2)
-  | '4' -> (-2, 0)
-  | '5' -> (-2, 1)
-  | '6' -> (-2, 2)
-  | '1' -> (-1, 0)
-  | '2' -> (-1, 1)
-  | '3' -> (-1, 2)
-  | '0' -> (0, 1)
   | 'A' -> (0, 2)
-  | _ -> raise (Invalid_argument "Not part of the numpad")
-
-let dirpad c =
-  match c with
   | '^' -> (0, 1)
-  | 'A' -> (0, 2)
   | '<' -> (1, 0)
   | 'v' -> (1, 1)
   | '>' -> (1, 2)
-  | _ -> raise (Invalid_argument "Not part of the dirpad")
+  | '0' -> (0, 1)
+  | '1' -> (-1, 0)
+  | '2' -> (-1, 1)
+  | '3' -> (-1, 2)
+  | '4' -> (-2, 0)
+  | '5' -> (-2, 1)
+  | '6' -> (-2, 2)
+  | '7' -> (-3, 0)
+  | '8' -> (-3, 1)
+  | '9' -> (-3, 2)
+  | _ -> invalid_arg "Not part of the pad"
 
 let rec string_repeat count string =
   if count > 0 then string ^ string_repeat (count - 1) string else ""
 
-let step pad src dst =
+let step src dst =
   let src_loc = pad src in
   let dst_loc = pad dst in
   let si = fst src_loc in
@@ -52,16 +47,16 @@ let step pad src dst =
     ^ string_repeat (dj - sj) ">"
     ^ "A"
 
-let rec steps pad string =
+let rec steps string =
   if String.length string > 1 then
-    step pad (String.get string 0) (String.get string 1)
-    ^ steps pad (String.sub string 1 (String.length string - 1))
+    step (String.get string 0) (String.get string 1)
+    ^ steps (String.sub string 1 (String.length string - 1))
   else ""
 
 let codes = read_lines ()
-let num_codes = List.map (fun x -> steps numpad ("A" ^ x)) codes
-let dir_codes = List.map (fun x -> steps dirpad ("A" ^ x)) num_codes
-let dir_codes = List.map (fun x -> steps dirpad ("A" ^ x)) dir_codes
+let num_codes = List.map (fun x -> steps ("A" ^ x)) codes
+let dir_codes = List.map (fun x -> steps ("A" ^ x)) num_codes
+let dir_codes = List.map (fun x -> steps ("A" ^ x)) dir_codes
 let lengths = List.map String.length dir_codes
 
 let numeric_parts =
@@ -72,13 +67,11 @@ let part1 =
   |> List.map (fun p -> fst p * snd p)
   |> List.fold_left ( + ) 0
 
-let rec deduplicate counts =
-  match counts with
-  | [] -> []
-  | [ _ ] -> counts
+let rec deduplicate = function
   | a :: b :: rest ->
       if fst a = fst b then deduplicate ((fst a, snd a + snd b) :: rest)
       else a :: deduplicate (b :: rest)
+  | last -> last
 
 let rec count_pairs string =
   if String.length string > 1 then
@@ -86,13 +79,12 @@ let rec count_pairs string =
     :: count_pairs (String.sub string 1 (String.length string - 1))
   else []
 
-let rec apply counts =
-  match counts with
+let rec apply = function
   | [] -> []
   | p :: rest ->
       List.concat
         [
-          count_pairs ("A" ^ step dirpad (fst (fst p)) (snd (fst p)))
+          count_pairs ("A" ^ step (fst (fst p)) (snd (fst p)))
           |> List.map (fun q -> (fst q, snd q * snd p));
           apply rest;
         ]
@@ -108,8 +100,7 @@ let counts =
         (deduplicate (List.sort compare (count_pairs ("A" ^ x)))))
     num_codes
 
-let lengths =
-  List.map (fun x -> x |> List.map snd |> List.fold_left ( + ) 0) counts
+let lengths = List.map (List.fold_left (fun a b -> a + snd b) 0) counts
 
 let part2 =
   List.combine numeric_parts lengths
