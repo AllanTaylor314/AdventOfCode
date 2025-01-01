@@ -23,30 +23,22 @@ let add_edge key value =
 let () = List.iter (fun p -> add_edge (fst p) (snd p)) edges
 let () = List.iter (fun p -> add_edge (snd p) (fst p)) edges
 
-let rec bron_kerbosch r p x =
-  if p = StringSet.empty then r
+let rec bron_kerbosch r p =
+  if StringSet.is_empty p then r
   else
-    let v = List.hd (StringSet.to_list p) in
+    let v = StringSet.choose p in
     let rec_candidate =
       bron_kerbosch (StringSet.add v r)
         (StringSet.inter p (Hashtbl.find adjacency_matrix v))
-        (StringSet.inter x (Hashtbl.find adjacency_matrix v))
     in
-    let loop_candidate =
-      bron_kerbosch r (StringSet.remove v p) (StringSet.add v x)
-    in
-    if
-      List.compare_lengths
-        (StringSet.to_list rec_candidate)
-        (StringSet.to_list loop_candidate)
-      = 1
-    then rec_candidate
+    let loop_candidate = bron_kerbosch r (StringSet.remove v p) in
+    if StringSet.cardinal rec_candidate > StringSet.cardinal loop_candidate then
+      rec_candidate
     else loop_candidate
 
 let part2 =
   bron_kerbosch StringSet.empty
     (StringSet.of_seq (Hashtbl.to_seq_keys adjacency_matrix))
-    StringSet.empty
-  |> StringSet.to_list |> List.sort compare |> String.concat ","
+  |> StringSet.to_list |> String.concat ","
 
 let () = printf "Part 2: %s\n" part2
