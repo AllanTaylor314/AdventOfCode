@@ -1,5 +1,6 @@
 open Printf
 module StringSet = Set.Make (String)
+module StringSetSet = Set.Make (StringSet)
 
 let process_line line =
   String.split_on_char '-' line |> function
@@ -15,13 +16,18 @@ let edges = read_lines ()
 let adjacency_matrix = Hashtbl.create 1013
 
 let add_edge key value =
-  Hashtbl.add adjacency_matrix key
-    (StringSet.add value
-       (try Hashtbl.find adjacency_matrix key
-        with Not_found -> StringSet.empty))
+  (match Hashtbl.find_opt adjacency_matrix key with
+  | None -> StringSet.empty
+  | Some set -> set)
+  |> StringSet.add value
+  |> Hashtbl.replace adjacency_matrix key
 
-let () = List.iter (fun p -> add_edge (fst p) (snd p)) edges
-let () = List.iter (fun p -> add_edge (snd p) (fst p)) edges
+let () =
+  List.iter
+    (fun p ->
+      add_edge (fst p) (snd p);
+      add_edge (snd p) (fst p))
+    edges
 
 let rec bron_kerbosch r p =
   if StringSet.is_empty p then r
@@ -36,9 +42,29 @@ let rec bron_kerbosch r p =
       rec_candidate
     else loop_candidate
 
+let create_pairs n =
+  Hashtbl.find adjacency_matrix n
+  |> StringSet.to_seq
+  |> Seq.map (fun v -> (n, v))
+
+let create_triples (a, b) =
+  StringSet.inter
+    (Hashtbl.find adjacency_matrix a)
+    (Hashtbl.find adjacency_matrix b)
+  |> StringSet.to_seq
+  |> Seq.map (fun v -> StringSet.of_list [ a; b; v ])
+
+let part1 =
+  Hashtbl.to_seq_keys adjacency_matrix
+  |> Seq.filter (String.starts_with ~prefix:"t")
+  |> Seq.concat_map create_pairs
+  |> Seq.concat_map create_triples
+  |> StringSetSet.of_seq |> StringSetSet.cardinal
+
 let part2 =
-  bron_kerbosch StringSet.empty
-    (StringSet.of_seq (Hashtbl.to_seq_keys adjacency_matrix))
+  Hashtbl.to_seq_keys adjacency_matrix
+  |> StringSet.of_seq
+  |> bron_kerbosch StringSet.empty
   |> StringSet.to_list |> String.concat ","
 
-let () = printf "Part 2: %s\n" part2
+let () = printf "Part 1: %d\nPart 2: %s\n" part1 part2
