@@ -10,23 +10,11 @@ timer_parse_start=perf_counter()
 ############################## PARSER ##############################
 with open(INPUT_PATH) as file:
     lines = file.read().splitlines()
+deltas = [int(line.replace('R','').replace('L','-')) for line in lines]
 
 timer_parse_end=timer_part1_start=perf_counter()
-############################## PART 1 ##############################
+############################# PART 1&2 #############################
 p1 = 0
-
-deltas = [int(line.replace('R','').replace('L','-')) for line in lines]
-val = 50
-for d in deltas:
-    val += d
-    val %= 100
-    if val == 0:
-        p1 += 1
-
-
-print("Part 1:",p1)
-timer_part1_end=timer_part2_start=perf_counter()
-############################## PART 2 ##############################
 p2 = 0
 val = 50
 for d in deltas:
@@ -36,11 +24,13 @@ for d in deltas:
     for i in range(-d):
         val = (val - 1) % 100
         p2 += val == 0
+    p1 += val == 0
 
+print("Part 1:",p1)
 print("Part 2:",p2)
+
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
 Parse: {timer_parse_end-timer_parse_start:3.3f}
-Part1: {timer_part1_end-timer_part1_start:3.3f}
-Part2: {timer_part2_end-timer_part2_start:3.3f}
+Parts: {timer_part2_end-timer_part1_start:3.3f}
 Total: {timer_script_end-timer_script_start:3.3f}""")
