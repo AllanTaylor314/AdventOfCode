@@ -18,8 +18,8 @@ p1 = 0
 beams = {start := lines[0].index('S')}
 for line in lines:
     new_beams = set(beams)
-    for i, c in enumerate(line):
-        if c == '^' and i in beams:
+    for i in beams:
+        if line[i] == '^':
             new_beams.discard(i)
             new_beams.add(i-1)
             new_beams.add(i+1)
