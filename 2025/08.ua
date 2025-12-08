@@ -1,7 +1,4 @@
-Update ← ≡(⊡⊃⋅≠[⊙⋅∘]) # NewID OldID Mapping
-
-# map {"Apple" "Banana" "Carrot" "Daisy" "Egg" "Fox"} [11 10 20 50 20 60]
-# Update? 10 20
+Update ← |3 ⍜▽◌ ⊃(⋅=|⋅⋅∘|∘) # NewID OldID Mapping
 
 $ 162,817,812
 $ 57,618,57
