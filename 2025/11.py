@@ -13,31 +13,24 @@ with open(INPUT_PATH) as file:
     lines = file.read().splitlines()
 
 servers = {a[:-1]: b for a,*b in map(str.split, lines)}
-# print(servers)
+
 timer_parse_end=timer_part1_start=perf_counter()
 ############################## PART 1 ##############################
 @cache
-def num_paths(source):
-    if source == 'out':
-        return 1
-    return sum(map(num_paths, servers[source]))
-p1 = num_paths('you')
-
-
-print("Part 1:",p1)
-timer_part1_end=timer_part2_start=perf_counter()
-############################## PART 2 ##############################
-@cache
-def num_paths2(source, has_dac=False, has_fft=False):
+def num_paths(source, has_dac=True, has_fft=True):
     if source == 'out':
         return 1 if has_dac and has_fft else 0
     if source == 'dac':
         has_dac = True
     if source == 'fft':
         has_fft = True
-    return sum(num_paths2(server, has_dac, has_fft) for server in servers[source])
-p2 = num_paths2('svr')
+    return sum(num_paths(server, has_dac, has_fft) for server in servers[source])
 
+p1 = num_paths('you')
+print("Part 1:",p1)
+timer_part1_end=timer_part2_start=perf_counter()
+############################## PART 2 ##############################
+p2 = num_paths('svr', False, False)
 print("Part 2:",p2)
 timer_part2_end=timer_script_end=perf_counter()
 print(f"""Execution times (sec)
